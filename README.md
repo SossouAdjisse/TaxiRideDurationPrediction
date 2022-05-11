@@ -1,2 +1,2 @@
 # TaxiRideDurationPrediction
-Taxi Ride Duration Prediction
+This project aims at using Automated feature engineering to create new features, and build a predictive model, for predicting the duration for taxi ride. This prediction will help a typical taxi company to efficiently assign the cabs to riders so that the service is free of hassle. To do this, I will start the models with simple features and gradually improve the feature definitions and examine the accuracy of the system. More precisely, I will be executing the following: 1-) Install the dependencies, 2-) Load the data as pandas dataframe, 3-) Perform EDA on the dataset, 4-) Build features with Deep Feature Synthesis using the featuretools. 
