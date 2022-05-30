@@ -14263,47 +14263,47 @@ a.anchor-link {
 <hr>
 <h1 id="PROJECT:-Predictive-Analytics:-Taxi-Ride-Duration-Prediction">PROJECT: Predictive Analytics: Taxi Ride Duration Prediction<a class="anchor-link" href="#PROJECT:-Predictive-Analytics:-Taxi-Ride-Duration-Prediction">&#182;</a></h1><h6 id="Sossou-S-Adjisse"><strong>Sossou S Adjisse</strong><a class="anchor-link" href="#Sossou-S-Adjisse">&#182;</a></h6><hr>
 <hr>
-<h2 id="Objective"><strong>Objective</strong><a class="anchor-link" href="#Objective">&#182;</a></h2><p>This project aims at using Automated feature engineering to create new features, and  build a predictive model, for predicting the duration for taxi ride. This prediction will help a typical taxi company to efficiently assign the cabs to riders so that the service is free of hassle. To do this, I will start the models with simple features and gradually improve the feature definitions and examine the accuracy of the system. More precisely, I will be executing the following:</p>
+<h2 id="Objective"><strong>Objective</strong><a class="anchor-link" href="#Objective">&#182;</a></h2><p>This project aims at using Automated feature engineering to create new features, and  build predictive models, for predicting the duration for taxi ride. This prediction will help a typical taxi company to efficiently assign the cabs to riders so that the service is free of hassle. To do this, I will start the model with simple features and gradually improve the feature definitions and examine the accuracy of the system. More precisely, I will be executing the following:</p>
 <ul>
 <li>Install the dependencies</li>
 <li>Load the data as pandas dataframe</li>
 <li>Perform EDA on the dataset</li>
 <li>Build features with Deep Feature Synthesis using the featuretools</li>
+<li>Create <strong>Linear Regression</strong>, <strong>Decision Tree</strong>, and <strong>Random Forest</strong> models </li>
 </ul>
 <hr>
 <h2 id="Dataset"><strong>Dataset</strong><a class="anchor-link" href="#Dataset">&#182;</a></h2><hr>
 <ul>
-<li>The three datasets used for this project can be found <a href="https://drive.google.com/drive/folders/1JlFj6sLQNgJaPcD-T12jsxX04wk1HzAS?usp=sharing">HERE</a></li>
+<li>The three datasets used for this project can be found <a href="https://drive.google.com/drive/folders/1JlFj6sLQNgJaPcD-T12jsxX04wk1HzAS?usp=sharing">HERE</a>. The dataset  contains information regarding the taxi trips, its duration, etc. in New York City.</li>
 </ul>
-<p>The dataset  contains information regarding the taxi trips, its duratio, etc. in New York City.</p>
 <p>The <code>trips</code> table has the following fields:</p>
 <ul>
-<li><code>id</code>: which uniquely identifies the trip</li>
-<li><code>vendor_id</code>:  is the taxi cab company - in our case study we have data from three different: cab companies</li>
-<li><code>pickup_datetime</code>:  the time stamp for pickup</li>
-<li><code>dropoff_datetime</code>:  the time stamp for drop-off</li>
-<li><code>passenger_count</code>: the number of passengers for the trip</li>
-<li><code>trip_distance</code>: total distance of the trip in miles </li>
-<li><code>pickup_longitude</code>: the longitude for pickup</li>
-<li><code>pickup_latitude</code>: the latitude for pickup</li>
-<li><code>dropoff_longitude</code>: the longitude of dropoff </li>
-<li><code>dropoff_latitude</code>: the latitude of dropoff</li>
-<li><code>payment_type</code>: a numeric code signifying how the passenger paid for the trip. 1= Credit card 2= Cash 3= No charge 4= Dispute 5= Unknown 6= Voided</li>
-<li><code>trip_duration</code>: this is the duration we would like to predict using other fields </li>
-<li><code>pickup_neighborhood</code>: a one or two letter id of the neighborhood where the trip started</li>
-<li><code>dropoff_neighborhood</code>: a one or two letter id of the neighborhood where the trip ended</li>
+<li><strong>id:</strong> which uniquely identifies the trip</li>
+<li><strong>vendor_id:</strong>  is the taxi cab company - in our case study we have data from three different: cab companies</li>
+<li><strong>pickup_datetime:</strong>  the time stamp for pickup</li>
+<li><strong>dropoff_datetime:</strong>  the time stamp for drop-off</li>
+<li><strong>passenger_count:</strong> the number of passengers for the trip</li>
+<li><strong>trip_distance:</strong> total distance of the trip in miles </li>
+<li><strong>pickup_longitude:</strong> the longitude for pickup</li>
+<li><strong>pickup_latitude:</strong> the latitude for pickup</li>
+<li><strong>dropoff_longitude:</strong> the longitude of dropoff </li>
+<li><strong>dropoff_latitude:</strong> the latitude of dropoff</li>
+<li><strong>payment_type:</strong> how the passenger paid for the trip: 1= Credit card, 2= Cash, 3= No charge, 4= Dispute, 5= Unknown, 6= Voided</li>
+<li><strong>trip_duration:</strong> the duration we would like to predict using other fields </li>
+<li><strong>pickup_neighborhood:</strong> a one or two letter id of the neighborhood where the trip started</li>
+<li><strong>dropoff_neighborhood:</strong> a one or two letter id of the neighborhood where the trip ended</li>
 </ul>
 
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="Step-1">Step 1<a class="anchor-link" href="#Step-1">&#182;</a></h1>
+<h1 id="Step-1:-Loading-packages-&amp;-data-sets,-and-performing-Exploratory-Data-Analysis-(EDA)">Step 1: Loading packages &amp; data sets, and performing Exploratory Data Analysis (EDA)<a class="anchor-link" href="#Step-1:-Loading-packages-&amp;-data-sets,-and-performing-Exploratory-Data-Analysis-(EDA)">&#182;</a></h1>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[100]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Installing featuretools library</span>
@@ -14327,26 +14327,27 @@ a.anchor-link {
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Requirement already satisfied: featuretools==0.27.0 in /usr/local/lib/python3.7/dist-packages (0.27.0)
-Requirement already satisfied: tqdm&gt;=4.32.0 in /usr/local/lib/python3.7/dist-packages (from featuretools==0.27.0) (4.64.0)
-Requirement already satisfied: cloudpickle&gt;=0.4.0 in /usr/local/lib/python3.7/dist-packages (from featuretools==0.27.0) (2.0.0)
-Requirement already satisfied: click&gt;=7.0.0 in /usr/local/lib/python3.7/dist-packages (from featuretools==0.27.0) (7.1.2)
-Requirement already satisfied: numpy&gt;=1.16.6 in /usr/local/lib/python3.7/dist-packages (from featuretools==0.27.0) (1.21.6)
-Requirement already satisfied: distributed&gt;=2.12.0 in /usr/local/lib/python3.7/dist-packages (from featuretools==0.27.0) (2.30.1)
-Requirement already satisfied: pandas&lt;2.0.0,&gt;=1.2.0 in /usr/local/lib/python3.7/dist-packages (from featuretools==0.27.0) (1.3.5)
+<pre>Looking in indexes: https://pypi.org/simple, https://us-python.pkg.dev/colab-wheels/public/simple/
+Requirement already satisfied: featuretools==0.27.0 in /usr/local/lib/python3.7/dist-packages (0.27.0)
 Requirement already satisfied: dask[dataframe]&gt;=2.12.0 in /usr/local/lib/python3.7/dist-packages (from featuretools==0.27.0) (2.12.0)
-Requirement already satisfied: scipy&gt;=1.3.2 in /usr/local/lib/python3.7/dist-packages (from featuretools==0.27.0) (1.4.1)
+Requirement already satisfied: cloudpickle&gt;=0.4.0 in /usr/local/lib/python3.7/dist-packages (from featuretools==0.27.0) (2.1.0)
+Requirement already satisfied: numpy&gt;=1.16.6 in /usr/local/lib/python3.7/dist-packages (from featuretools==0.27.0) (1.21.6)
 Requirement already satisfied: pyyaml&gt;=5.4 in /usr/local/lib/python3.7/dist-packages (from featuretools==0.27.0) (6.0)
-Requirement already satisfied: psutil&gt;=5.6.6 in /usr/local/lib/python3.7/dist-packages (from featuretools==0.27.0) (5.9.0)
-Requirement already satisfied: fsspec&gt;=0.6.0 in /usr/local/lib/python3.7/dist-packages (from dask[dataframe]&gt;=2.12.0-&gt;featuretools==0.27.0) (2022.3.0)
+Requirement already satisfied: scipy&gt;=1.3.2 in /usr/local/lib/python3.7/dist-packages (from featuretools==0.27.0) (1.4.1)
+Requirement already satisfied: distributed&gt;=2.12.0 in /usr/local/lib/python3.7/dist-packages (from featuretools==0.27.0) (2.30.1)
+Requirement already satisfied: click&gt;=7.0.0 in /usr/local/lib/python3.7/dist-packages (from featuretools==0.27.0) (7.1.2)
+Requirement already satisfied: pandas&lt;2.0.0,&gt;=1.2.0 in /usr/local/lib/python3.7/dist-packages (from featuretools==0.27.0) (1.3.5)
+Requirement already satisfied: psutil&gt;=5.6.6 in /usr/local/lib/python3.7/dist-packages (from featuretools==0.27.0) (5.9.1)
+Requirement already satisfied: tqdm&gt;=4.32.0 in /usr/local/lib/python3.7/dist-packages (from featuretools==0.27.0) (4.64.0)
 Requirement already satisfied: partd&gt;=0.3.10 in /usr/local/lib/python3.7/dist-packages (from dask[dataframe]&gt;=2.12.0-&gt;featuretools==0.27.0) (1.2.0)
+Requirement already satisfied: fsspec&gt;=0.6.0 in /usr/local/lib/python3.7/dist-packages (from dask[dataframe]&gt;=2.12.0-&gt;featuretools==0.27.0) (2022.5.0)
 Requirement already satisfied: toolz&gt;=0.7.3 in /usr/local/lib/python3.7/dist-packages (from dask[dataframe]&gt;=2.12.0-&gt;featuretools==0.27.0) (0.11.2)
-Requirement already satisfied: tblib&gt;=1.6.0 in /usr/local/lib/python3.7/dist-packages (from distributed&gt;=2.12.0-&gt;featuretools==0.27.0) (1.7.0)
+Requirement already satisfied: tornado&gt;=5 in /usr/local/lib/python3.7/dist-packages (from distributed&gt;=2.12.0-&gt;featuretools==0.27.0) (5.1.1)
 Requirement already satisfied: zict&gt;=0.1.3 in /usr/local/lib/python3.7/dist-packages (from distributed&gt;=2.12.0-&gt;featuretools==0.27.0) (2.2.0)
 Requirement already satisfied: setuptools in /usr/local/lib/python3.7/dist-packages (from distributed&gt;=2.12.0-&gt;featuretools==0.27.0) (57.4.0)
-Requirement already satisfied: tornado&gt;=5 in /usr/local/lib/python3.7/dist-packages (from distributed&gt;=2.12.0-&gt;featuretools==0.27.0) (5.1.1)
-Requirement already satisfied: sortedcontainers!=2.0.0,!=2.0.1 in /usr/local/lib/python3.7/dist-packages (from distributed&gt;=2.12.0-&gt;featuretools==0.27.0) (2.4.0)
 Requirement already satisfied: msgpack&gt;=0.6.0 in /usr/local/lib/python3.7/dist-packages (from distributed&gt;=2.12.0-&gt;featuretools==0.27.0) (1.0.3)
+Requirement already satisfied: sortedcontainers!=2.0.0,!=2.0.1 in /usr/local/lib/python3.7/dist-packages (from distributed&gt;=2.12.0-&gt;featuretools==0.27.0) (2.4.0)
+Requirement already satisfied: tblib&gt;=1.6.0 in /usr/local/lib/python3.7/dist-packages (from distributed&gt;=2.12.0-&gt;featuretools==0.27.0) (1.7.0)
 Requirement already satisfied: python-dateutil&gt;=2.7.3 in /usr/local/lib/python3.7/dist-packages (from pandas&lt;2.0.0,&gt;=1.2.0-&gt;featuretools==0.27.0) (2.8.2)
 Requirement already satisfied: pytz&gt;=2017.3 in /usr/local/lib/python3.7/dist-packages (from pandas&lt;2.0.0,&gt;=1.2.0-&gt;featuretools==0.27.0) (2022.1)
 Requirement already satisfied: locket in /usr/local/lib/python3.7/dist-packages (from partd&gt;=0.3.10-&gt;dask[dataframe]&gt;=2.12.0-&gt;featuretools==0.27.0) (1.0.0)
@@ -14363,12 +14364,12 @@ Requirement already satisfied: heapdict in /usr/local/lib/python3.7/dist-package
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Importing-some-Necessary-libraries">Importing some Necessary libraries<a class="anchor-link" href="#Importing-some-Necessary-libraries">&#182;</a></h2>
+<h2 id="Importing-the-Necessary-libraries">Importing the Necessary libraries<a class="anchor-link" href="#Importing-the-Necessary-libraries">&#182;</a></h2>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[101]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -14428,7 +14429,7 @@ The autoreload extension is already loaded. To reload it, use:
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[102]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Setting global random seed</span>
@@ -14448,7 +14449,7 @@ The autoreload extension is already loaded. To reload it, use:
 
     <span class="k">return</span> <span class="n">trips</span><span class="p">,</span> <span class="n">pickup_neighborhoods</span><span class="p">,</span> <span class="n">dropoff_neighborhoods</span>
 
-<span class="c1">### To preview first five rows. </span>
+<span class="c1"># To preview first five rows. </span>
 <span class="k">def</span> <span class="nf">preview</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;return n rows that have fewest number of nulls&quot;&quot;&quot;</span>
     <span class="n">order</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">index</span>
@@ -14471,7 +14472,7 @@ The autoreload extension is already loaded. To reload it, use:
     <span class="k">return</span> <span class="n">feature_matrix</span>
 
 
-<span class="c1">#to generate train and test dataset</span>
+<span class="c1"># To generate train and test dataset</span>
 <span class="k">def</span> <span class="nf">get_train_test_fm</span><span class="p">(</span><span class="n">feature_matrix</span><span class="p">,</span> <span class="n">percentage</span><span class="p">):</span>
     <span class="n">nrows</span> <span class="o">=</span> <span class="n">feature_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">head</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">nrows</span> <span class="o">*</span> <span class="n">percentage</span><span class="p">)</span>
@@ -14490,7 +14491,7 @@ The autoreload extension is already loaded. To reload it, use:
 
 
 
-<span class="c1">#to see the feature importance of variables in the final model</span>
+<span class="c1"># To see the feature importance of variables in the final model</span>
 <span class="k">def</span> <span class="nf">feature_importances</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">feature_names</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
     <span class="n">importances</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">feature_importances_</span>
     <span class="n">zipped</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">feature_names</span><span class="p">,</span> <span class="n">importances</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
@@ -14511,7 +14512,7 @@ The autoreload extension is already loaded. To reload it, use:
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[103]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">trips</span><span class="p">,</span> <span class="n">pickup_neighborhoods</span><span class="p">,</span> <span class="n">dropoff_neighborhoods</span> <span class="o">=</span> <span class="n">load_nyc_taxi_data</span><span class="p">()</span>
@@ -14531,13 +14532,13 @@ The autoreload extension is already loaded. To reload it, use:
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[&nbsp;]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[103]:</div>
 
 
 
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
 
-  <div id="df-f8b9dea0-ba44-4235-896e-4e18f41a99f1">
+  <div id="df-fef87a86-5a5f-4351-b920-265d558b9336">
     <div class="colab-df-container">
       <div>
 <style scoped>
@@ -14747,7 +14748,7 @@ The autoreload extension is already loaded. To reload it, use:
   </tbody>
 </table>
 </div>
-      <button class="colab-df-convert" onclick="convertToInteractive('df-f8b9dea0-ba44-4235-896e-4e18f41a99f1')"
+      <button class="colab-df-convert" onclick="convertToInteractive('df-fef87a86-5a5f-4351-b920-265d558b9336')"
               title="Convert this dataframe to an interactive table."
               style="display:none;">
         
@@ -14798,12 +14799,12 @@ The autoreload extension is already loaded. To reload it, use:
 
       <script>
         const buttonEl =
-          document.querySelector('#df-f8b9dea0-ba44-4235-896e-4e18f41a99f1 button.colab-df-convert');
+          document.querySelector('#df-fef87a86-5a5f-4351-b920-265d558b9336 button.colab-df-convert');
         buttonEl.style.display =
           google.colab.kernel.accessAllowed ? 'block' : 'none';
 
         async function convertToInteractive(key) {
-          const element = document.querySelector('#df-f8b9dea0-ba44-4235-896e-4e18f41a99f1');
+          const element = document.querySelector('#df-fef87a86-5a5f-4351-b920-265d558b9336');
           const dataTable =
             await google.colab.kernel.invokeFunction('convertToInteractive',
                                                      [key], {});
@@ -14839,7 +14840,7 @@ The autoreload extension is already loaded. To reload it, use:
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[104]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">trips</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -14858,13 +14859,13 @@ The autoreload extension is already loaded. To reload it, use:
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[&nbsp;]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[104]:</div>
 
 
 
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
 
-  <div id="df-cd0a3825-a340-404b-b3e3-187f0608280c">
+  <div id="df-c61759bb-088f-41b5-8ed1-e3dfbe17cc28">
     <div class="colab-df-container">
       <div>
 <style scoped>
@@ -14989,7 +14990,7 @@ The autoreload extension is already loaded. To reload it, use:
   </tbody>
 </table>
 </div>
-      <button class="colab-df-convert" onclick="convertToInteractive('df-cd0a3825-a340-404b-b3e3-187f0608280c')"
+      <button class="colab-df-convert" onclick="convertToInteractive('df-c61759bb-088f-41b5-8ed1-e3dfbe17cc28')"
               title="Convert this dataframe to an interactive table."
               style="display:none;">
         
@@ -15040,12 +15041,12 @@ The autoreload extension is already loaded. To reload it, use:
 
       <script>
         const buttonEl =
-          document.querySelector('#df-cd0a3825-a340-404b-b3e3-187f0608280c button.colab-df-convert');
+          document.querySelector('#df-c61759bb-088f-41b5-8ed1-e3dfbe17cc28 button.colab-df-convert');
         buttonEl.style.display =
           google.colab.kernel.accessAllowed ? 'block' : 'none';
 
         async function convertToInteractive(key) {
-          const element = document.querySelector('#df-cd0a3825-a340-404b-b3e3-187f0608280c');
+          const element = document.querySelector('#df-c61759bb-088f-41b5-8ed1-e3dfbe17cc28');
           const dataTable =
             await google.colab.kernel.invokeFunction('convertToInteractive',
                                                      [key], {});
@@ -15081,7 +15082,7 @@ The autoreload extension is already loaded. To reload it, use:
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[105]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Checking the info of the dataset</span>
@@ -15138,7 +15139,7 @@ memory usage: 137.3+ MB
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <ul>
-<li>There are 974409 non null values in the dataset</li>
+<li>The dataset contains 974409 non null values for every variable. </li>
 </ul>
 
 </div>
@@ -15150,7 +15151,7 @@ memory usage: 137.3+ MB
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[106]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Checking the uniques values in each columns</span>
@@ -15170,7 +15171,7 @@ memory usage: 137.3+ MB
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[&nbsp;]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[106]:</div>
 
 
 
@@ -15203,24 +15204,24 @@ dtype: int64</pre>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <ul>
-<li>vendor_id has only 2 unique values, implies there are only 2 major taxi vendors are there. </li>
-<li>Passenger count has 8 unique values and payment type have 4. </li>
-<li>There are 49 neighborhood in the dataset, from where either a pickup or dropoff is happening. </li>
+<li>There are only 2 major taxi vendors. </li>
+<li>There are 4 payment types. </li>
+<li>There are 49 neighborhood for either pickup or dropoff. </li>
 </ul>
 
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Check-summary-statistics-of-the-dataset">Check summary statistics of the dataset<a class="anchor-link" href="#Check-summary-statistics-of-the-dataset">&#182;</a></h2>
+<h2 id="Summary-statistics-of-the-dataset">Summary statistics of the dataset<a class="anchor-link" href="#Summary-statistics-of-the-dataset">&#182;</a></h2>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[107]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Chekcing the descriptive stats of the data</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Chekcing the descriptive statistics of the data</span>
 <span class="n">trips</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
 </pre></div>
 
@@ -15237,13 +15238,13 @@ dtype: int64</pre>
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[&nbsp;]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[107]:</div>
 
 
 
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
 
-  <div id="df-709de588-8c31-4217-b29b-fddf28da2c14">
+  <div id="df-b3cbd71e-310e-4103-bd1f-e145095de6b2">
     <div class="colab-df-container">
       <div>
 <style scoped>
@@ -15365,7 +15366,7 @@ dtype: int64</pre>
   </tbody>
 </table>
 </div>
-      <button class="colab-df-convert" onclick="convertToInteractive('df-709de588-8c31-4217-b29b-fddf28da2c14')"
+      <button class="colab-df-convert" onclick="convertToInteractive('df-b3cbd71e-310e-4103-bd1f-e145095de6b2')"
               title="Convert this dataframe to an interactive table."
               style="display:none;">
         
@@ -15416,12 +15417,12 @@ dtype: int64</pre>
 
       <script>
         const buttonEl =
-          document.querySelector('#df-709de588-8c31-4217-b29b-fddf28da2c14 button.colab-df-convert');
+          document.querySelector('#df-b3cbd71e-310e-4103-bd1f-e145095de6b2 button.colab-df-convert');
         buttonEl.style.display =
           google.colab.kernel.accessAllowed ? 'block' : 'none';
 
         async function convertToInteractive(key) {
-          const element = document.querySelector('#df-709de588-8c31-4217-b29b-fddf28da2c14');
+          const element = document.querySelector('#df-b3cbd71e-310e-4103-bd1f-e145095de6b2');
           const dataTable =
             await google.colab.kernel.invokeFunction('convertToInteractive',
                                                      [key], {});
@@ -15454,23 +15455,23 @@ dtype: int64</pre>
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p><strong>Comments:</strong></p>
 <ul>
-<li>passenger_count has minimum o as well as trip_distance, and it does not look right.</li>
+<li>The minimun number of passenger in cab (passenger_count) and the minimum distance of trip (trip_distance) are 0. This looks ackward. </li>
 </ul>
 
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Checking-for-the-rows-for-which-trip_distance-is-0">Checking for the rows for which trip_distance is 0<a class="anchor-link" href="#Checking-for-the-rows-for-which-trip_distance-is-0">&#182;</a></h2>
+<h2 id="Checking-for-the-rows-for-which-trip_distance-is-0-and-trip-duration-is-different-from-0,-OR/AND-trip-distance-is-different-from-0-but-the-trip-duration-is-0.">Checking for the rows for which trip_distance is 0 and trip duration is different from 0, OR/AND trip distance is different from 0 but the trip duration is 0.<a class="anchor-link" href="#Checking-for-the-rows-for-which-trip_distance-is-0-and-trip-duration-is-different-from-0,-OR/AND-trip-distance-is-different-from-0-but-the-trip-duration-is-0.">&#182;</a></h2>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[108]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Chekcing the rows where trip distance is 0</span>
-<span class="n">trips</span><span class="p">[</span><span class="n">trips</span><span class="p">[</span><span class="s1">&#39;trip_distance&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">0</span><span class="p">]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># When both the distnace and the duration are 0. </span>
+<span class="n">trips</span><span class="p">[((</span><span class="n">trips</span><span class="p">[</span><span class="s1">&#39;trip_distance&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">trips</span><span class="p">[</span><span class="s1">&#39;trip_duration&#39;</span><span class="p">]</span> <span class="o">==</span><span class="mi">0</span><span class="p">))]</span>
 </pre></div>
 
      </div>
@@ -15486,13 +15487,294 @@ dtype: int64</pre>
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[&nbsp;]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[108]:</div>
 
 
 
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
 
-  <div id="df-4a73ebeb-6cfa-4d05-8487-5f601e3bf4c4">
+  <div id="df-2c54a286-41e0-426c-874a-9431bd431885">
+    <div class="colab-df-container">
+      <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>vendor_id</th>
+      <th>pickup_datetime</th>
+      <th>dropoff_datetime</th>
+      <th>passenger_count</th>
+      <th>trip_distance</th>
+      <th>pickup_longitude</th>
+      <th>pickup_latitude</th>
+      <th>dropoff_longitude</th>
+      <th>dropoff_latitude</th>
+      <th>payment_type</th>
+      <th>trip_duration</th>
+      <th>pickup_neighborhood</th>
+      <th>dropoff_neighborhood</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>142202</th>
+      <td>148598</td>
+      <td>1</td>
+      <td>2016-01-30 00:00:29</td>
+      <td>2016-01-30 00:00:29</td>
+      <td>1</td>
+      <td>0.0</td>
+      <td>-73.989578</td>
+      <td>40.743877</td>
+      <td>-73.989578</td>
+      <td>40.743877</td>
+      <td>2</td>
+      <td>0.0</td>
+      <td>AO</td>
+      <td>AO</td>
+    </tr>
+    <tr>
+      <th>186754</th>
+      <td>195171</td>
+      <td>1</td>
+      <td>2016-02-07 02:18:12</td>
+      <td>2016-02-07 02:18:12</td>
+      <td>1</td>
+      <td>0.0</td>
+      <td>-73.958992</td>
+      <td>40.774734</td>
+      <td>-73.958992</td>
+      <td>40.774734</td>
+      <td>2</td>
+      <td>0.0</td>
+      <td>O</td>
+      <td>O</td>
+    </tr>
+    <tr>
+      <th>244549</th>
+      <td>255510</td>
+      <td>1</td>
+      <td>2016-02-17 16:20:07</td>
+      <td>2016-02-17 16:20:07</td>
+      <td>1</td>
+      <td>0.0</td>
+      <td>-73.981049</td>
+      <td>40.761829</td>
+      <td>-73.981049</td>
+      <td>40.761829</td>
+      <td>3</td>
+      <td>0.0</td>
+      <td>A</td>
+      <td>A</td>
+    </tr>
+    <tr>
+      <th>247768</th>
+      <td>258883</td>
+      <td>2</td>
+      <td>2016-02-18 07:51:48</td>
+      <td>2016-02-18 07:51:48</td>
+      <td>1</td>
+      <td>0.0</td>
+      <td>-73.950653</td>
+      <td>40.779415</td>
+      <td>-73.924385</td>
+      <td>40.744076</td>
+      <td>2</td>
+      <td>0.0</td>
+      <td>AM</td>
+      <td>L</td>
+    </tr>
+    <tr>
+      <th>453550</th>
+      <td>474136</td>
+      <td>2</td>
+      <td>2016-03-25 22:16:55</td>
+      <td>2016-03-25 22:16:55</td>
+      <td>1</td>
+      <td>0.0</td>
+      <td>-73.936821</td>
+      <td>40.764652</td>
+      <td>-73.936829</td>
+      <td>40.764648</td>
+      <td>1</td>
+      <td>0.0</td>
+      <td>AM</td>
+      <td>AM</td>
+    </tr>
+    <tr>
+      <th>510434</th>
+      <td>533535</td>
+      <td>1</td>
+      <td>2016-04-05 10:42:08</td>
+      <td>2016-04-05 10:42:08</td>
+      <td>1</td>
+      <td>0.0</td>
+      <td>-73.918495</td>
+      <td>40.743378</td>
+      <td>-73.918495</td>
+      <td>40.743378</td>
+      <td>2</td>
+      <td>0.0</td>
+      <td>L</td>
+      <td>L</td>
+    </tr>
+    <tr>
+      <th>789029</th>
+      <td>825835</td>
+      <td>2</td>
+      <td>2016-05-25 16:59:13</td>
+      <td>2016-05-25 16:59:13</td>
+      <td>2</td>
+      <td>0.0</td>
+      <td>-73.789581</td>
+      <td>40.646870</td>
+      <td>-73.957977</td>
+      <td>40.773521</td>
+      <td>1</td>
+      <td>0.0</td>
+      <td>G</td>
+      <td>O</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+      <button class="colab-df-convert" onclick="convertToInteractive('df-2c54a286-41e0-426c-874a-9431bd431885')"
+              title="Convert this dataframe to an interactive table."
+              style="display:none;">
+        
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+       width="24px">
+    <path d="M0 0h24v24H0V0z" fill="none"/>
+    <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"/><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"/>
+  </svg>
+      </button>
+      
+  <style>
+    .colab-df-container {
+      display:flex;
+      flex-wrap:wrap;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+      <script>
+        const buttonEl =
+          document.querySelector('#df-2c54a286-41e0-426c-874a-9431bd431885 button.colab-df-convert');
+        buttonEl.style.display =
+          google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+        async function convertToInteractive(key) {
+          const element = document.querySelector('#df-2c54a286-41e0-426c-874a-9431bd431885');
+          const dataTable =
+            await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                     [key], {});
+          if (!dataTable) return;
+
+          const docLinkHtml = 'Like what you see? Visit the ' +
+            '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+            + ' to learn more about interactive tables.';
+          element.innerHTML = '';
+          dataTable['output_type'] = 'display_data';
+          await google.colab.output.renderOutput(dataTable, element);
+          const docLink = document.createElement('div');
+          docLink.innerHTML = docLinkHtml;
+          element.appendChild(docLink);
+        }
+      </script>
+    </div>
+  </div>
+  
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p><strong>Comments:</strong></p>
+<ul>
+<li>There are only 7 rows where both the duration and the distance are 0 simultaneously.</li>
+</ul>
+
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[109]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Chekcing the rows where trip distance is 0 but trip duration is different from 0, and vise versa </span>
+<span class="n">trips</span><span class="p">[((</span><span class="n">trips</span><span class="p">[</span><span class="s1">&#39;trip_distance&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">trips</span><span class="p">[</span><span class="s1">&#39;trip_duration&#39;</span><span class="p">]</span> <span class="o">!=</span><span class="mi">0</span><span class="p">))</span> <span class="o">|</span> <span class="p">((</span><span class="n">trips</span><span class="p">[</span><span class="s1">&#39;trip_distance&#39;</span><span class="p">]</span><span class="o">!=</span><span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">trips</span><span class="p">[</span><span class="s1">&#39;trip_duration&#39;</span><span class="p">]</span> <span class="o">==</span><span class="mi">0</span><span class="p">))]</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[109]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+
+  <div id="df-74977d1a-b798-4605-8696-7cc34365528f">
     <div class="colab-df-container">
       <div>
 <style scoped>
@@ -15718,9 +16000,9 @@ dtype: int64</pre>
     </tr>
   </tbody>
 </table>
-<p>3807 rows × 14 columns</p>
+<p>3818 rows × 14 columns</p>
 </div>
-      <button class="colab-df-convert" onclick="convertToInteractive('df-4a73ebeb-6cfa-4d05-8487-5f601e3bf4c4')"
+      <button class="colab-df-convert" onclick="convertToInteractive('df-74977d1a-b798-4605-8696-7cc34365528f')"
               title="Convert this dataframe to an interactive table."
               style="display:none;">
         
@@ -15771,12 +16053,12 @@ dtype: int64</pre>
 
       <script>
         const buttonEl =
-          document.querySelector('#df-4a73ebeb-6cfa-4d05-8487-5f601e3bf4c4 button.colab-df-convert');
+          document.querySelector('#df-74977d1a-b798-4605-8696-7cc34365528f button.colab-df-convert');
         buttonEl.style.display =
           google.colab.kernel.accessAllowed ? 'block' : 'none';
 
         async function convertToInteractive(key) {
-          const element = document.querySelector('#df-4a73ebeb-6cfa-4d05-8487-5f601e3bf4c4');
+          const element = document.querySelector('#df-74977d1a-b798-4605-8696-7cc34365528f');
           const dataTable =
             await google.colab.kernel.invokeFunction('convertToInteractive',
                                                      [key], {});
@@ -15807,38 +16089,30 @@ dtype: int64</pre>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p><strong>Comments:</strong></p>
 <ul>
-<li>We can observe that, where trip distance is 0 trip duration is not 0, hence we can replace those values. </li>
-<li>There are 3807 such rows</li>
+<li>There are 3818 rows where trip distance is 0 but trip duration is different from 0 or trip duration is different from 0 but trip distance is 0. </li>
 </ul>
 
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Replacing-the-0-values-with-median-of-the-trip-distance">Replacing the 0 values with median of the trip distance<a class="anchor-link" href="#Replacing-the-0-values-with-median-of-the-trip-distance">&#182;</a></h2>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">trips</span><span class="p">[</span><span class="s1">&#39;trip_distance&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">trips</span><span class="p">[</span><span class="s1">&#39;trip_distance&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">trips</span><span class="p">[</span><span class="s1">&#39;trip_distance&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">())</span>
-</pre></div>
+<h2 id="Replacing-the-0-values-with-median-for-both-trip-distance-and-trip-duration">Replacing the 0 values with median for both trip distance and trip duration<a class="anchor-link" href="#Replacing-the-0-values-with-median-for-both-trip-distance-and-trip-duration">&#182;</a></h2><p><strong>Notes:</strong></p>
+<ul>
+<li>It is not normal to have the duration equal 0 and the distance different from 0 and vice versa. Therefore, it means sense to replace those values by 0s. Because there are only 7 rows where both the distance and the duration are simultanesly 0, which is the normal, we can replace these 0s with median without distortion to the distribution of the data. </li>
+</ul>
 
-     </div>
 </div>
-</div>
-</div>
-
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[110]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">trips</span><span class="p">[</span><span class="n">trips</span><span class="p">[</span><span class="s1">&#39;trip_distance&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Replacing the 0s of trip distance by the median value</span>
+<span class="n">trips</span><span class="p">[</span><span class="s1">&#39;trip_distance&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">trips</span><span class="p">[</span><span class="s1">&#39;trip_distance&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">trips</span><span class="p">[</span><span class="s1">&#39;trip_distance&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">())</span>
+<span class="n">trips</span><span class="p">[</span><span class="n">trips</span><span class="p">[</span><span class="s1">&#39;trip_distance&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
 </pre></div>
 
      </div>
@@ -15854,7 +16128,60 @@ dtype: int64</pre>
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[&nbsp;]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[110]:</div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
+<pre>id                      0
+vendor_id               0
+pickup_datetime         0
+dropoff_datetime        0
+passenger_count         0
+trip_distance           0
+pickup_longitude        0
+pickup_latitude         0
+dropoff_longitude       0
+dropoff_latitude        0
+payment_type            0
+trip_duration           0
+pickup_neighborhood     0
+dropoff_neighborhood    0
+dtype: int64</pre>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[111]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Replacing the 0s of the trip duration with the median value </span>
+<span class="n">trips</span><span class="p">[</span><span class="s1">&#39;trip_duration&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">trips</span><span class="p">[</span><span class="s1">&#39;trip_duration&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">trips</span><span class="p">[</span><span class="s1">&#39;trip_duration&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">())</span>
+<span class="n">trips</span><span class="p">[</span><span class="n">trips</span><span class="p">[</span><span class="s1">&#39;trip_duration&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[111]:</div>
 
 
 
@@ -15886,327 +16213,12 @@ dtype: int64</pre>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Checking-for-the-rows-for-which-trip_duration-is-0">Checking for the rows for which trip_duration is 0<a class="anchor-link" href="#Checking-for-the-rows-for-which-trip_duration-is-0">&#182;</a></h2>
+<h2 id="Plotting-the-histograms-for-the-numerical-columns-to-visualize-their-distributions.">Plotting the histograms for the numerical columns to visualize their distributions.<a class="anchor-link" href="#Plotting-the-histograms-for-the-numerical-columns-to-visualize-their-distributions.">&#182;</a></h2>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">trips</span><span class="p">[</span><span class="n">trips</span><span class="p">[</span><span class="s1">&#39;trip_duration&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[&nbsp;]:</div>
-
-
-
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
-
-  <div id="df-37060e09-fa84-4ab3-be44-e285a8b889a2">
-    <div class="colab-df-container">
-      <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>id</th>
-      <th>vendor_id</th>
-      <th>pickup_datetime</th>
-      <th>dropoff_datetime</th>
-      <th>passenger_count</th>
-      <th>trip_distance</th>
-      <th>pickup_longitude</th>
-      <th>pickup_latitude</th>
-      <th>dropoff_longitude</th>
-      <th>dropoff_latitude</th>
-      <th>payment_type</th>
-      <th>trip_duration</th>
-      <th>pickup_neighborhood</th>
-      <th>dropoff_neighborhood</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>44446</th>
-      <td>46325</td>
-      <td>1</td>
-      <td>2016-01-10 00:48:55</td>
-      <td>2016-01-10 00:48:55</td>
-      <td>1</td>
-      <td>1.20</td>
-      <td>-73.968842</td>
-      <td>40.766972</td>
-      <td>-73.968842</td>
-      <td>40.766972</td>
-      <td>3</td>
-      <td>0.0</td>
-      <td>AK</td>
-      <td>AK</td>
-    </tr>
-    <tr>
-      <th>121544</th>
-      <td>126869</td>
-      <td>2</td>
-      <td>2016-01-26 00:07:47</td>
-      <td>2016-01-26 00:07:47</td>
-      <td>6</td>
-      <td>4.35</td>
-      <td>-73.986694</td>
-      <td>40.739815</td>
-      <td>-73.956139</td>
-      <td>40.732872</td>
-      <td>1</td>
-      <td>0.0</td>
-      <td>R</td>
-      <td>Z</td>
-    </tr>
-    <tr>
-      <th>142202</th>
-      <td>148598</td>
-      <td>1</td>
-      <td>2016-01-30 00:00:29</td>
-      <td>2016-01-30 00:00:29</td>
-      <td>1</td>
-      <td>1.64</td>
-      <td>-73.989578</td>
-      <td>40.743877</td>
-      <td>-73.989578</td>
-      <td>40.743877</td>
-      <td>2</td>
-      <td>0.0</td>
-      <td>AO</td>
-      <td>AO</td>
-    </tr>
-    <tr>
-      <th>172653</th>
-      <td>180414</td>
-      <td>1</td>
-      <td>2016-02-04 19:23:45</td>
-      <td>2016-02-04 19:23:45</td>
-      <td>1</td>
-      <td>0.40</td>
-      <td>-73.990868</td>
-      <td>40.751106</td>
-      <td>-73.990868</td>
-      <td>40.751106</td>
-      <td>2</td>
-      <td>0.0</td>
-      <td>D</td>
-      <td>D</td>
-    </tr>
-    <tr>
-      <th>173013</th>
-      <td>180795</td>
-      <td>1</td>
-      <td>2016-02-04 20:23:10</td>
-      <td>2016-02-04 20:23:10</td>
-      <td>1</td>
-      <td>0.80</td>
-      <td>-73.977661</td>
-      <td>40.752968</td>
-      <td>-73.977661</td>
-      <td>40.752968</td>
-      <td>2</td>
-      <td>0.0</td>
-      <td>AD</td>
-      <td>AD</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-      <button class="colab-df-convert" onclick="convertToInteractive('df-37060e09-fa84-4ab3-be44-e285a8b889a2')"
-              title="Convert this dataframe to an interactive table."
-              style="display:none;">
-        
-  <svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
-       width="24px">
-    <path d="M0 0h24v24H0V0z" fill="none"/>
-    <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"/><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"/>
-  </svg>
-      </button>
-      
-  <style>
-    .colab-df-container {
-      display:flex;
-      flex-wrap:wrap;
-      gap: 12px;
-    }
-
-    .colab-df-convert {
-      background-color: #E8F0FE;
-      border: none;
-      border-radius: 50%;
-      cursor: pointer;
-      display: none;
-      fill: #1967D2;
-      height: 32px;
-      padding: 0 0 0 0;
-      width: 32px;
-    }
-
-    .colab-df-convert:hover {
-      background-color: #E2EBFA;
-      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
-      fill: #174EA6;
-    }
-
-    [theme=dark] .colab-df-convert {
-      background-color: #3B4455;
-      fill: #D2E3FC;
-    }
-
-    [theme=dark] .colab-df-convert:hover {
-      background-color: #434B5C;
-      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
-      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
-      fill: #FFFFFF;
-    }
-  </style>
-
-      <script>
-        const buttonEl =
-          document.querySelector('#df-37060e09-fa84-4ab3-be44-e285a8b889a2 button.colab-df-convert');
-        buttonEl.style.display =
-          google.colab.kernel.accessAllowed ? 'block' : 'none';
-
-        async function convertToInteractive(key) {
-          const element = document.querySelector('#df-37060e09-fa84-4ab3-be44-e285a8b889a2');
-          const dataTable =
-            await google.colab.kernel.invokeFunction('convertToInteractive',
-                                                     [key], {});
-          if (!dataTable) return;
-
-          const docLinkHtml = 'Like what you see? Visit the ' +
-            '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
-            + ' to learn more about interactive tables.';
-          element.innerHTML = '';
-          dataTable['output_type'] = 'display_data';
-          await google.colab.output.renderOutput(dataTable, element);
-          const docLink = document.createElement('div');
-          docLink.innerHTML = docLinkHtml;
-          element.appendChild(docLink);
-        }
-      </script>
-    </div>
-  </div>
-  
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<ul>
-<li>We can observe that, where trip distance is 0 trip duration is not 0, hence we can replace those values. </li>
-</ul>
-
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">trips</span><span class="p">[</span><span class="s1">&#39;trip_duration&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">trips</span><span class="p">[</span><span class="s1">&#39;trip_duration&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">trips</span><span class="p">[</span><span class="s1">&#39;trip_duration&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">())</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">trips</span><span class="p">[</span><span class="n">trips</span><span class="p">[</span><span class="s1">&#39;trip_duration&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[&nbsp;]:</div>
-
-
-
-
-<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>id                      0
-vendor_id               0
-pickup_datetime         0
-dropoff_datetime        0
-passenger_count         0
-trip_distance           0
-pickup_longitude        0
-pickup_latitude         0
-dropoff_longitude       0
-dropoff_latitude        0
-payment_type            0
-trip_duration           0
-pickup_neighborhood     0
-dropoff_neighborhood    0
-dtype: int64</pre>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Building-histogram-for-numerical-columns">Building histogram for numerical columns<a class="anchor-link" href="#Building-histogram-for-numerical-columns">&#182;</a></h2>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[112]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">trips</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">16</span><span class="p">))</span>
@@ -16252,14 +16264,19 @@ dtype: int64</pre>
 <li>The distributions of pickup_latitude and dropoff_latitude look more like normal distribution</li>
 <li>There are outliers in the distribtion of trip_duration, which is skewed to the right.</li>
 <li>There are also outliers in the passenger_count with most trip with only one passenger. </li>
-<li>pickup-longitude and dropoff_longitude too have some outliers.</li>
+<li>The pickup-longitude and the dropoff_longitude too have some outliers.</li>
 </ul>
 
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Dectecting-outliers-of-trip-distance-using-boxplot.">Dectecting outliers of trip distance using boxplot.<a class="anchor-link" href="#Dectecting-outliers-of-trip-distance-using-boxplot.">&#182;</a></h2>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[113]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">trips</span><span class="p">[</span><span class="s1">&#39;trip_distance&#39;</span><span class="p">])</span>
@@ -16312,15 +16329,21 @@ dtype: int64</pre>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p><strong>Comments:</strong></p>
 <ul>
-<li>We can see there is an extreme outlier in the dataset, we drop investigate it further</li>
+<li>There is an extreme outlier in the trip distance, thus needs to be investigated further.</li>
 </ul>
 
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Trip-distance-greater-than-100-miles">Trip distance greater than 100 miles<a class="anchor-link" href="#Trip-distance-greater-than-100-miles">&#182;</a></h2>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[114]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">trips</span><span class="p">[</span><span class="n">trips</span><span class="p">[</span><span class="s1">&#39;trip_distance&#39;</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">100</span><span class="p">]</span>
@@ -16339,13 +16362,13 @@ dtype: int64</pre>
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[&nbsp;]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[114]:</div>
 
 
 
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
 
-  <div id="df-81620756-9a7e-45cd-a79e-a40a9cb1ac78">
+  <div id="df-fbed67b7-15a5-4f35-8e08-b590db878cf3">
     <div class="colab-df-container">
       <div>
 <style scoped>
@@ -16470,7 +16493,7 @@ dtype: int64</pre>
   </tbody>
 </table>
 </div>
-      <button class="colab-df-convert" onclick="convertToInteractive('df-81620756-9a7e-45cd-a79e-a40a9cb1ac78')"
+      <button class="colab-df-convert" onclick="convertToInteractive('df-fbed67b7-15a5-4f35-8e08-b590db878cf3')"
               title="Convert this dataframe to an interactive table."
               style="display:none;">
         
@@ -16521,12 +16544,12 @@ dtype: int64</pre>
 
       <script>
         const buttonEl =
-          document.querySelector('#df-81620756-9a7e-45cd-a79e-a40a9cb1ac78 button.colab-df-convert');
+          document.querySelector('#df-fbed67b7-15a5-4f35-8e08-b590db878cf3 button.colab-df-convert');
         buttonEl.style.display =
           google.colab.kernel.accessAllowed ? 'block' : 'none';
 
         async function convertToInteractive(key) {
-          const element = document.querySelector('#df-81620756-9a7e-45cd-a79e-a40a9cb1ac78');
+          const element = document.querySelector('#df-fbed67b7-15a5-4f35-8e08-b590db878cf3');
           const dataTable =
             await google.colab.kernel.invokeFunction('convertToInteractive',
                                                      [key], {});
@@ -16557,21 +16580,22 @@ dtype: int64</pre>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p><strong>Comments:</strong></p>
 <ul>
-<li>We can observe that, there are 2 observation&gt;500, and there is a huge gap in the trip duration for them.</li>
-<li>Covering 501.4 distance in 141 sec, is not possible, it is better we can clip these values to 50. </li>
+<li>There are 2 observation &gt; 500, and there is a huge gap between their trip durations.</li>
+<li>Covering 501.4 miles distance in 141 seconds is not possible. Thus, it means sense to clip these outliers. I choose to clip them to 50. </li>
 </ul>
 
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Clipping-the-outliers-of-trip-distance-to-50">Clipping the outliers of trip distance to 50<a class="anchor-link" href="#Clipping-the-outliers-of-trip-distance-to-50">&#182;</a></h2>
+<h2 id="Curtailing-(clipping)-the-outliers-of-trip-distance-to-50-miles">Curtailing (clipping) the outliers of trip distance to 50 miles<a class="anchor-link" href="#Curtailing-(clipping)-the-outliers-of-trip-distance-to-50-miles">&#182;</a></h2>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[115]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">trips</span><span class="p">[</span><span class="s1">&#39;trip_distance&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">trips</span><span class="p">[</span><span class="s1">&#39;trip_distance&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">trips</span><span class="p">[</span><span class="s1">&#39;trip_distance&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span><span class="mi">50</span><span class="p">)</span>
@@ -16585,7 +16609,7 @@ dtype: int64</pre>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[116]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">trips</span><span class="p">[</span><span class="s1">&#39;trip_distance&#39;</span><span class="p">])</span>
@@ -16638,16 +16662,15 @@ dtype: int64</pre>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Plotting-countplot-for-Passenger_count">Plotting countplot for Passenger_count<a class="anchor-link" href="#Plotting-countplot-for-Passenger_count">&#182;</a></h2>
+<h2 id="Investigating-the-number-of-passengers-on-trips-further-by-countploting--Passenger_count.">Investigating the number of passengers on trips further by countploting  Passenger_count.<a class="anchor-link" href="#Investigating-the-number-of-passengers-on-trips-further-by-countploting--Passenger_count.">&#182;</a></h2>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[117]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">countplot</span><span class="p">(</span><span class="n">trips</span><span class="o">.</span><span class="n">passenger_count</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
@@ -16698,10 +16721,10 @@ dtype: int64</pre>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[118]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">trips</span><span class="o">.</span><span class="n">passenger_count</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">trips</span><span class="o">.</span><span class="n">passenger_count</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span>
 </pre></div>
 
      </div>
@@ -16717,20 +16740,20 @@ dtype: int64</pre>
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[&nbsp;]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[118]:</div>
 
 
 
 
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>1    0.709334
-2    0.143419
-5    0.053409
-3    0.041140
-6    0.033334
-4    0.019338
-0    0.000025
-9    0.000002
+<pre>1    70.933356
+2    14.341924
+5     5.340878
+3     4.113981
+6     3.333405
+4     1.933788
+0     0.002463
+9     0.000205
 Name: passenger_count, dtype: float64</pre>
 </div>
 
@@ -16745,9 +16768,9 @@ Name: passenger_count, dtype: float64</pre>
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p><strong>Comments:</strong></p>
 <ul>
-<li>The vast majority of the trips (70%) have one passerger. </li>
-<li>14% of the trips have 2 passengers on them </li>
-<li>All the trips of more than 2 passengers  are less than 6% each. </li>
+<li>The vast majority of the trips (70%) have one passenger. </li>
+<li>14% of the trips have 2 passengers on them.</li>
+<li>Trips of more than 2 passengers  are less than 6% each. </li>
 </ul>
 
 </div>
@@ -16759,7 +16782,7 @@ Name: passenger_count, dtype: float64</pre>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[119]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pandas._libs.hashtable</span> <span class="kn">import</span> <span class="n">value_count</span>
@@ -16779,13 +16802,13 @@ Name: passenger_count, dtype: float64</pre>
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[&nbsp;]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[119]:</div>
 
 
 
 
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7fd1cfab3190&gt;</pre>
+<pre>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7f090edfe190&gt;</pre>
 </div>
 
 </div>
@@ -16813,7 +16836,7 @@ Name: passenger_count, dtype: float64</pre>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[120]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">trips</span><span class="o">.</span><span class="n">dropoff_neighborhood</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
@@ -16832,13 +16855,13 @@ Name: passenger_count, dtype: float64</pre>
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[&nbsp;]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[120]:</div>
 
 
 
 
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7fd1cf93de50&gt;</pre>
+<pre>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7f090ec827d0&gt;</pre>
 </div>
 
 </div>
@@ -16868,181 +16891,12 @@ Name: passenger_count, dtype: float64</pre>
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p><strong>Comments:</strong></p>
 <ul>
-<li>M, T, AF, B, AE, AQ, AJ, and AE are the less busy places whereas places like AD, A, AA, and D are the busiest places. All other places are in between. </li>
+<li>M, T, AF, B, AE, AQ, AJ, and AE are the less busy places.</li>
+<li>Places like AD, A, AA, and D are the busiest places. </li>
+<li>All other places are in between. </li>
 </ul>
 
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pickup_neighborhoods</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[&nbsp;]:</div>
-
-
-
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
-
-  <div id="df-ce228ecf-cf1a-468d-94f1-ea0ab8670905">
-    <div class="colab-df-container">
-      <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>neighborhood_id</th>
-      <th>latitude</th>
-      <th>longitude</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>AH</td>
-      <td>40.804349</td>
-      <td>-73.961716</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>Z</td>
-      <td>40.715828</td>
-      <td>-73.954298</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>D</td>
-      <td>40.750179</td>
-      <td>-73.992557</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>AT</td>
-      <td>40.729670</td>
-      <td>-73.981693</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>AG</td>
-      <td>40.749843</td>
-      <td>-74.003458</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-      <button class="colab-df-convert" onclick="convertToInteractive('df-ce228ecf-cf1a-468d-94f1-ea0ab8670905')"
-              title="Convert this dataframe to an interactive table."
-              style="display:none;">
-        
-  <svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
-       width="24px">
-    <path d="M0 0h24v24H0V0z" fill="none"/>
-    <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"/><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"/>
-  </svg>
-      </button>
-      
-  <style>
-    .colab-df-container {
-      display:flex;
-      flex-wrap:wrap;
-      gap: 12px;
-    }
-
-    .colab-df-convert {
-      background-color: #E8F0FE;
-      border: none;
-      border-radius: 50%;
-      cursor: pointer;
-      display: none;
-      fill: #1967D2;
-      height: 32px;
-      padding: 0 0 0 0;
-      width: 32px;
-    }
-
-    .colab-df-convert:hover {
-      background-color: #E2EBFA;
-      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
-      fill: #174EA6;
-    }
-
-    [theme=dark] .colab-df-convert {
-      background-color: #3B4455;
-      fill: #D2E3FC;
-    }
-
-    [theme=dark] .colab-df-convert:hover {
-      background-color: #434B5C;
-      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
-      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
-      fill: #FFFFFF;
-    }
-  </style>
-
-      <script>
-        const buttonEl =
-          document.querySelector('#df-ce228ecf-cf1a-468d-94f1-ea0ab8670905 button.colab-df-convert');
-        buttonEl.style.display =
-          google.colab.kernel.accessAllowed ? 'block' : 'none';
-
-        async function convertToInteractive(key) {
-          const element = document.querySelector('#df-ce228ecf-cf1a-468d-94f1-ea0ab8670905');
-          const dataTable =
-            await google.colab.kernel.invokeFunction('convertToInteractive',
-                                                     [key], {});
-          if (!dataTable) return;
-
-          const docLinkHtml = 'Like what you see? Visit the ' +
-            '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
-            + ' to learn more about interactive tables.';
-          element.innerHTML = '';
-          dataTable['output_type'] = 'display_data';
-          await google.colab.output.renderOutput(dataTable, element);
-          const docLink = document.createElement('div');
-          docLink.innerHTML = docLinkHtml;
-          element.appendChild(docLink);
-        }
-      </script>
-    </div>
-  </div>
-  
-</div>
-
-</div>
-
-</div>
-
-</div>
-
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
@@ -17051,12 +16905,12 @@ Name: passenger_count, dtype: float64</pre>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Plot-a-scatter-plot-for-trip-distance-and-trip-duration">Plot a scatter plot for trip distance and trip duration<a class="anchor-link" href="#Plot-a-scatter-plot-for-trip-distance-and-trip-duration">&#182;</a></h2>
+<h3 id="Scatterplot-for-trip-distance-and-trip-duration">Scatterplot for trip distance and trip duration<a class="anchor-link" href="#Scatterplot-for-trip-distance-and-trip-duration">&#182;</a></h3>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[121]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">trips</span><span class="p">[</span><span class="s1">&#39;trip_distance&#39;</span><span class="p">],</span><span class="n">trips</span><span class="p">[</span><span class="s1">&#39;trip_duration&#39;</span><span class="p">])</span>
@@ -17088,13 +16942,13 @@ Name: passenger_count, dtype: float64</pre>
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[&nbsp;]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[121]:</div>
 
 
 
 
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7fd1cf795d90&gt;</pre>
+<pre>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7f090ed2f090&gt;</pre>
 </div>
 
 </div>
@@ -17122,15 +16976,21 @@ Name: passenger_count, dtype: float64</pre>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p><strong>Comments:</strong></p>
 <ul>
 <li>There is some positive correlation between trip_distance and trip_duration.</li>
 </ul>
 
 </div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Countplot-passenger_count-using-payment_type-as-hue.">Countplot passenger_count using payment_type as hue.<a class="anchor-link" href="#Countplot-passenger_count-using-payment_type-as-hue.">&#182;</a></h3>
+</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[122]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">countplot</span><span class="p">(</span><span class="n">trips</span><span class="p">[</span><span class="s1">&#39;passenger_count&#39;</span><span class="p">],</span><span class="n">hue</span><span class="o">=</span><span class="n">trips</span><span class="p">[</span><span class="s1">&#39;payment_type&#39;</span><span class="p">])</span>
@@ -17162,13 +17022,13 @@ Name: passenger_count, dtype: float64</pre>
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[&nbsp;]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[122]:</div>
 
 
 
 
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7fd1cf73a890&gt;</pre>
+<pre>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7f090eb2cdd0&gt;</pre>
 </div>
 
 </div>
@@ -17196,26 +17056,24 @@ Name: passenger_count, dtype: float64</pre>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p><strong>Comments:</strong></p>
 <ul>
-<li>There is no such specific pattern can be observed.</li>
+<li>There is no clear pattern observed here.</li>
+<li>But we can notice that the payment types 1 is most used by far, followed by the type 2. </li>
+<li>Now that I have explored the data enough, it is time to start building the models.</li>
 </ul>
 
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Now that I have explored the data enough, it is time to start building the models.</p>
-
+<h1 id="Step-2:-Preparing-the-Data-for-building-the-models">Step 2: Preparing the Data for building the models<a class="anchor-link" href="#Step-2:-Preparing-the-Data-for-building-the-models">&#182;</a></h1>
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="Step-2:-Building-the-models">Step 2: Building the models<a class="anchor-link" href="#Step-2:-Building-the-models">&#182;</a></h1>
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Preparing-the-Data-to-start-building">Preparing the Data to start building<a class="anchor-link" href="#Preparing-the-Data-to-start-building">&#182;</a></h2><p>Lets create entities and relationships. The three entities in this data are</p>
+<p><strong>Notes:</strong></p>
+<p>Lets create entities and relationships. The three entities in this data are</p>
 <ul>
 <li>trips </li>
 <li>pickup_neighborhoods</li>
@@ -17223,20 +17081,20 @@ Name: passenger_count, dtype: float64</pre>
 </ul>
 <p>The data has the following relationships</p>
 <ul>
-<li>pickup_neighborhoods --&gt; trips because one neighborhood can have multiple trips that start in it. This means pickup_neighborhoods is the <code>parent_entity</code> and trips is the child entity</li>
-<li>dropoff_neighborhoods --&gt; trips because one neighborhood can have multiple trips that end in it. This means dropoff_neighborhoods is the <code>parent_entity</code> and trips is the child entity</li>
+<li><strong>pickup_neighborhoods --&gt; trips:</strong> because one neighborhood can have multiple trips that start in it. This means pickup_neighborhoods is the <code>parent_entity</code> and trips is the <code>child_entity</code></li>
+<li><strong>dropoff_neighborhoods --&gt; trips:</strong> because one neighborhood can have multiple trips that end in it. This means dropoff_neighborhoods is the <code>parent_entity</code> and trips is the <code>child entity</code></li>
 </ul>
 
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Defining-entities-and-relationships-for-the-Deep-Feature-Synthesis">Defining entities and relationships for the Deep Feature Synthesis<a class="anchor-link" href="#Defining-entities-and-relationships-for-the-Deep-Feature-Synthesis">&#182;</a></h2>
+<h2 id="Defining-entities-and-relationships-for-the-Deep-Feature-Synthesis-(DFS)">Defining entities and relationships for the Deep Feature Synthesis (DFS)<a class="anchor-link" href="#Defining-entities-and-relationships-for-the-Deep-Feature-Synthesis-(DFS)">&#182;</a></h2>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[123]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">entities</span> <span class="o">=</span> <span class="p">{</span>
@@ -17257,19 +17115,26 @@ Name: passenger_count, dtype: float64</pre>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Next, we specify the cutoff time for each instance of the target_entity, in this case <code>trips</code>.This timestamp represents the last time data can be used for calculating features by DFS. In this scenario, that would be the pickup time because we would like to make the duration prediction using data before the trip starts.</p>
-<p>For the purposes of the case study, we choose to only select trips that started after January 12th, 2016.</p>
+<p><strong>Notes:</strong></p>
+<ul>
+<li>Next, we specify the cutoff time for each instance of the target_entity, in this case <code>trips</code></li>
+<li>This timestamp represents the last time data can be used for calculating features by DFS. </li>
+<li>In this scenario, that would be the pickup time because we would like to make the duration prediction using data before the trip starts. <ul>
+<li>e.g. If we use the dropoff time instead, we may end up having a trip which has its dropoff in the testing set while its pickup is in the training set. And, this would be bad for our prediction. </li>
+</ul>
+</li>
+<li>For the purposes of the case study, we choose to only select trips that started after January 12th, 2016. </li>
+</ul>
 
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[124]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">cutoff_time</span> <span class="o">=</span> <span class="n">trips</span><span class="p">[[</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;pickup_datetime&#39;</span><span class="p">]]</span>
 <span class="n">cutoff_time</span> <span class="o">=</span> <span class="n">cutoff_time</span><span class="p">[</span><span class="n">cutoff_time</span><span class="p">[</span><span class="s1">&#39;pickup_datetime&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="s2">&quot;2016-01-12&quot;</span><span class="p">]</span>
-<span class="n">preview</span><span class="p">(</span><span class="n">cutoff_time</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -17277,186 +17142,10 @@ Name: passenger_count, dtype: float64</pre>
 </div>
 </div>
 
-<div class="jp-Cell-outputWrapper">
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[&nbsp;]:</div>
-
-
-
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
-
-  <div id="df-33adefef-50b6-4421-abde-12f8600d6e92">
-    <div class="colab-df-container">
-      <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>id</th>
-      <th>pickup_datetime</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>54031</th>
-      <td>56311</td>
-      <td>2016-01-12 00:00:25</td>
-    </tr>
-    <tr>
-      <th>667608</th>
-      <td>698423</td>
-      <td>2016-05-03 17:59:59</td>
-    </tr>
-    <tr>
-      <th>667609</th>
-      <td>698424</td>
-      <td>2016-05-03 18:00:52</td>
-    </tr>
-    <tr>
-      <th>667610</th>
-      <td>698425</td>
-      <td>2016-05-03 18:01:06</td>
-    </tr>
-    <tr>
-      <th>667611</th>
-      <td>698426</td>
-      <td>2016-05-03 18:01:11</td>
-    </tr>
-    <tr>
-      <th>667612</th>
-      <td>698427</td>
-      <td>2016-05-03 18:01:12</td>
-    </tr>
-    <tr>
-      <th>667613</th>
-      <td>698428</td>
-      <td>2016-05-03 18:01:12</td>
-    </tr>
-    <tr>
-      <th>667614</th>
-      <td>698429</td>
-      <td>2016-05-03 18:01:24</td>
-    </tr>
-    <tr>
-      <th>667615</th>
-      <td>698430</td>
-      <td>2016-05-03 18:01:36</td>
-    </tr>
-    <tr>
-      <th>667616</th>
-      <td>698431</td>
-      <td>2016-05-03 18:01:39</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-      <button class="colab-df-convert" onclick="convertToInteractive('df-33adefef-50b6-4421-abde-12f8600d6e92')"
-              title="Convert this dataframe to an interactive table."
-              style="display:none;">
-        
-  <svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
-       width="24px">
-    <path d="M0 0h24v24H0V0z" fill="none"/>
-    <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"/><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"/>
-  </svg>
-      </button>
-      
-  <style>
-    .colab-df-container {
-      display:flex;
-      flex-wrap:wrap;
-      gap: 12px;
-    }
-
-    .colab-df-convert {
-      background-color: #E8F0FE;
-      border: none;
-      border-radius: 50%;
-      cursor: pointer;
-      display: none;
-      fill: #1967D2;
-      height: 32px;
-      padding: 0 0 0 0;
-      width: 32px;
-    }
-
-    .colab-df-convert:hover {
-      background-color: #E2EBFA;
-      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
-      fill: #174EA6;
-    }
-
-    [theme=dark] .colab-df-convert {
-      background-color: #3B4455;
-      fill: #D2E3FC;
-    }
-
-    [theme=dark] .colab-df-convert:hover {
-      background-color: #434B5C;
-      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
-      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
-      fill: #FFFFFF;
-    }
-  </style>
-
-      <script>
-        const buttonEl =
-          document.querySelector('#df-33adefef-50b6-4421-abde-12f8600d6e92 button.colab-df-convert');
-        buttonEl.style.display =
-          google.colab.kernel.accessAllowed ? 'block' : 'none';
-
-        async function convertToInteractive(key) {
-          const element = document.querySelector('#df-33adefef-50b6-4421-abde-12f8600d6e92');
-          const dataTable =
-            await google.colab.kernel.invokeFunction('convertToInteractive',
-                                                     [key], {});
-          if (!dataTable) return;
-
-          const docLinkHtml = 'Like what you see? Visit the ' +
-            '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
-            + ' to learn more about interactive tables.';
-          element.innerHTML = '';
-          dataTable['output_type'] = 'display_data';
-          await google.colab.output.renderOutput(dataTable, element);
-          const docLink = document.createElement('div');
-          docLink.innerHTML = docLinkHtml;
-          element.appendChild(docLink);
-        }
-      </script>
-    </div>
-  </div>
-  
-</div>
-
-</div>
-
-</div>
-
-</div>
-
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="Step-3">Step 3<a class="anchor-link" href="#Step-3">&#182;</a></h1>
+<h1 id="Step-3:-Creating-the-models">Step 3: Creating the models<a class="anchor-link" href="#Step-3:-Creating-the-models">&#182;</a></h1>
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
@@ -17473,24 +17162,24 @@ Name: passenger_count, dtype: float64</pre>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p><strong>Create transform features using transform primitives</strong></p>
-<p>As we described in the video, features fall into two major categories, <code>transform</code> and <code>aggregate</code>. In featureools, we can create transform features by specifying <code>transform</code> primitives. Below we specify a <code>transform</code> primitive called <code>weekend</code> and here is what it does:</p>
+<p>Features fall into two major categories, <code>transform</code> and <code>aggregate</code>. In featureools, we can create transform features by specifying <code>transform</code> primitives. Below we specify a <code>transform</code> primitive called <code>weekend</code> and it works as follows:</p>
 <ul>
 <li>It can be applied to any <code>datetime</code> column in the data. </li>
 <li>For each entry in the column, it assess if it is a <code>weekend</code> and returns a boolean. </li>
 </ul>
-<p>In this specific data, there are two <code>datetime</code> columns <code>pickup_datetime</code> and <code>dropoff_datetime</code>. The tool automatically creates features using the primitive and these two columns as shown below.</p>
+<p>In this specific data, there are two <code>datetime</code> columns: <code>pickup_datetime</code> and <code>dropoff_datetime</code>. The tool automatically creates features using the primitive and these two columns as shown below.</p>
 
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Creating-a-baseline-model-with-only-one-transform-primitive">Creating a baseline model with only one transform primitive<a class="anchor-link" href="#Creating-a-baseline-model-with-only-one-transform-primitive">&#182;</a></h2><p><strong>Defining transform primitive for weekend and define features using dfs</strong></p>
+<h2 id="Creating-a-baseline-model-with-only-one-transform-primitive">Creating a baseline model with only one transform primitive<a class="anchor-link" href="#Creating-a-baseline-model-with-only-one-transform-primitive">&#182;</a></h2><p><strong>Defining transform primitive for weekend and define features using DFS</strong></p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[125]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">trans_primitives</span> <span class="o">=</span> <span class="p">[</span><span class="n">IsWeekend</span><span class="p">]</span>
@@ -17513,7 +17202,7 @@ Name: passenger_count, dtype: float64</pre>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[126]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Number of features: </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">features</span><span class="p">))</span>
@@ -17545,7 +17234,7 @@ Name: passenger_count, dtype: float64</pre>
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[&nbsp;]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[126]:</div>
 
 
 
@@ -17572,21 +17261,15 @@ Name: passenger_count, dtype: float64</pre>
 
 </div>
 
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><strong>Computing features and define feature matrix</strong></p>
-
-</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[127]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">compute_features</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">cutoff_time</span><span class="p">):</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Compute features and define feature matrix</span>
+<span class="k">def</span> <span class="nf">compute_features</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">cutoff_time</span><span class="p">):</span>
     <span class="c1"># shuffle so we don&#39;t see encoded features in the front or backs</span>
-
     <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">features</span><span class="p">)</span>
     <span class="n">feature_matrix</span> <span class="o">=</span> <span class="n">ft</span><span class="o">.</span><span class="n">calculate_feature_matrix</span><span class="p">(</span><span class="n">features</span><span class="p">,</span>
                                                  <span class="n">cutoff_time</span><span class="o">=</span><span class="n">cutoff_time</span><span class="p">,</span>
@@ -17607,7 +17290,7 @@ Name: passenger_count, dtype: float64</pre>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[128]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">feature_matrix1</span> <span class="o">=</span> <span class="n">compute_features</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">cutoff_time</span><span class="p">)</span>
@@ -17630,7 +17313,7 @@ Name: passenger_count, dtype: float64</pre>
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Elapsed: 00:29 | Progress: 100%|██████████
+<pre>Elapsed: 00:16 | Progress: 100%|██████████
 Finishing computing...
 </pre>
 </div>
@@ -17643,7 +17326,7 @@ Finishing computing...
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[129]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">preview</span><span class="p">(</span><span class="n">feature_matrix1</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
@@ -17662,13 +17345,13 @@ Finishing computing...
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[&nbsp;]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[129]:</div>
 
 
 
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
 
-  <div id="df-80b2b268-31f2-4751-968f-f6facd31f135">
+  <div id="df-c34c0e8b-beea-4172-9188-e7726ed5bfbf">
     <div class="colab-df-container">
       <div>
 <style scoped>
@@ -17860,7 +17543,7 @@ Finishing computing...
 </table>
 <p>5 rows × 31 columns</p>
 </div>
-      <button class="colab-df-convert" onclick="convertToInteractive('df-80b2b268-31f2-4751-968f-f6facd31f135')"
+      <button class="colab-df-convert" onclick="convertToInteractive('df-c34c0e8b-beea-4172-9188-e7726ed5bfbf')"
               title="Convert this dataframe to an interactive table."
               style="display:none;">
         
@@ -17911,12 +17594,12 @@ Finishing computing...
 
       <script>
         const buttonEl =
-          document.querySelector('#df-80b2b268-31f2-4751-968f-f6facd31f135 button.colab-df-convert');
+          document.querySelector('#df-c34c0e8b-beea-4172-9188-e7726ed5bfbf button.colab-df-convert');
         buttonEl.style.display =
           google.colab.kernel.accessAllowed ? 'block' : 'none';
 
         async function convertToInteractive(key) {
-          const element = document.querySelector('#df-80b2b268-31f2-4751-968f-f6facd31f135');
+          const element = document.querySelector('#df-c34c0e8b-beea-4172-9188-e7726ed5bfbf');
           const dataTable =
             await google.colab.kernel.invokeFunction('convertToInteractive',
                                                      [key], {});
@@ -17947,7 +17630,7 @@ Finishing computing...
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[130]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">feature_matrix1</span><span class="o">.</span><span class="n">shape</span>
@@ -17966,7 +17649,7 @@ Finishing computing...
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[&nbsp;]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[130]:</div>
 
 
 
@@ -17984,23 +17667,23 @@ Finishing computing...
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Build-the-Model">Build the Model<a class="anchor-link" href="#Build-the-Model">&#182;</a></h2><p>To build a model, we</p>
+<h2 id="Build-the-Model">Build the Model<a class="anchor-link" href="#Build-the-Model">&#182;</a></h2><p>To build a model, I will:</p>
 <ul>
-<li>Separate the data into a portion for <code>training</code> (75% in this case) and a portion for <code>testing</code> </li>
+<li>Separate the data into a portion for <code>training</code> (75% in this case) and a portion for <code>testing</code> (the remaining 25%). </li>
 <li>Get the log of the trip duration so that a more linear relationship can be found.</li>
-<li>Train a model using a <code>Linear Regression, Decision Tree and Random Forest model</code></li>
+<li>Train a model using a <strong>``Linear Regression, Decision Tree</strong> and <strong>Random Forest</strong> model``.</li>
 </ul>
 
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h4 id="Transforming-the-duration-variable-on-sqrt-and-log">Transforming the duration variable on sqrt and log<a class="anchor-link" href="#Transforming-the-duration-variable-on-sqrt-and-log">&#182;</a></h4>
+<h4 id="Transforming-the-duration-variable-with-sqrt-and-log">Transforming the duration variable with sqrt and log<a class="anchor-link" href="#Transforming-the-duration-variable-with-sqrt-and-log">&#182;</a></h4>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[133]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">trips</span><span class="p">[</span><span class="s1">&#39;trip_duration&#39;</span><span class="p">]))</span>
@@ -18019,7 +17702,7 @@ Finishing computing...
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[&nbsp;]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[133]:</div>
 
 
 
@@ -18058,7 +17741,7 @@ Finishing computing...
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[132]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">trips</span><span class="p">[</span><span class="s1">&#39;trip_duration&#39;</span><span class="p">]))</span>
@@ -18077,7 +17760,7 @@ Finishing computing...
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[&nbsp;]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[132]:</div>
 
 
 
@@ -18116,8 +17799,10 @@ Finishing computing...
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p><strong>Comments:</strong></p>
 <ul>
-<li>We can clearly see that the sqrt transformation is giving nearly normal distribution, there for we can choose the sqrt transformation on the dependent(trip_duration) variable.</li>
+<li>We can clearly see that the sqrt transformation is giving nearly normal distribution.</li>
+<li>Therefore, we can choose the sqrt transformation of the dependent variable, trip_duration.</li>
 </ul>
 
 </div>
@@ -18129,11 +17814,10 @@ Finishing computing...
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[134]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Separating the whole feature matrix into train data feature matrix, </span>
-<span class="c1"># train data labels, and test data feature matrix </span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Separating the whole feature matrix into train data feature matrix, using 75% training and 25% testing split. </span>
 <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">get_train_test_fm</span><span class="p">(</span><span class="n">feature_matrix1</span><span class="p">,</span><span class="o">.</span><span class="mi">75</span><span class="p">)</span>
 <span class="n">y_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">y_train</span><span class="p">)</span>
 <span class="n">y_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">y_test</span><span class="p">)</span>
@@ -18152,7 +17836,7 @@ Finishing computing...
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[135]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#RMSE</span>
@@ -18209,13 +17893,11 @@ Finishing computing...
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[136]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Defining the model</span>
-
 <span class="n">lr1</span><span class="o">=</span><span class="n">LinearRegression</span><span class="p">()</span>
-
 <span class="c1">#fitting the model</span>
 <span class="n">lr1</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
 </pre></div>
@@ -18233,7 +17915,7 @@ Finishing computing...
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[&nbsp;]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[136]:</div>
 
 
 
@@ -18248,18 +17930,14 @@ Finishing computing...
 
 </div>
 
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Check-the-performance-of-the-model">Check the performance of the model<a class="anchor-link" href="#Check-the-performance-of-the-model">&#182;</a></h2>
-</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[137]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">model_pref</span><span class="p">(</span><span class="n">lr1</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>  
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Checking the performance of the model</span>
+<span class="n">model_pref</span><span class="p">(</span><span class="n">lr1</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>  
 </pre></div>
 
      </div>
@@ -18295,7 +17973,8 @@ Finishing computing...
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p><strong>Comments:</strong></p>
 <ul>
-<li>The R-square on the trainset is around 0.58, which is greater than the R-squared on the testset which is 0.55. The RMSE of the trainset is  all less than the one on the testset, and the same thing is observed for the MAE. 
+<li>The R-square on the trainset is around 0.58, which is greater than the R-squared on the testset which is 0.55. </li>
+<li>The RMSE of the trainset is  all less than the one on the testset, and the same thing is observed for the MAE. 
 -The points above suggest that the model is overfitting. </li>
 </ul>
 
@@ -18308,14 +17987,12 @@ Finishing computing...
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[138]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># define the model</span>
 <span class="n">dt</span><span class="o">=</span><span class="n">DecisionTreeRegressor</span><span class="p">()</span>
-
 <span class="c1"># fit the model</span>
-
 <span class="n">dt</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
 </pre></div>
 
@@ -18332,7 +18009,7 @@ Finishing computing...
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[&nbsp;]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[138]:</div>
 
 
 
@@ -18347,18 +18024,14 @@ Finishing computing...
 
 </div>
 
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Check-the-performance-of-the-model">Check the performance of the model<a class="anchor-link" href="#Check-the-performance-of-the-model">&#182;</a></h2>
-</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[139]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">model_pref</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>  
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Checking the performance of the model</span>
+<span class="n">model_pref</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>  
 </pre></div>
 
      </div>
@@ -18397,7 +18070,7 @@ Finishing computing...
 <li>The model is super overfitting comapared to the above OLS. </li>
 <li>The gaps of the metrics between train and test is wide !<ul>
 <li>R-squared train = 92% and R-squared test = 60%</li>
-<li>RMSE train is 2.7 and RMSE tes is 6.2</li>
+<li>RMSE train is 2.7 and RMSE test is 6.2</li>
 <li>MAE trainset is 1.51 and MAE testset is 4.6</li>
 </ul>
 </li>
@@ -18407,18 +18080,16 @@ Finishing computing...
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Building-Pruned-decision-tree-using-only-weekend-transform-primitive">Building Pruned decision tree using only weekend transform primitive<a class="anchor-link" href="#Building-Pruned-decision-tree-using-only-weekend-transform-primitive">&#182;</a></h2>
+<h2 id="Building-pruned-decision-tree-using-only-weekend-transform-primitive">Building pruned decision tree using only weekend transform primitive<a class="anchor-link" href="#Building-pruned-decision-tree-using-only-weekend-transform-primitive">&#182;</a></h2>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[140]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Define the model</span>
-<span class="c1"># use max_depth=7</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Define the model using max_depth=7</span>
 <span class="n">dt_pruned</span><span class="o">=</span><span class="n">DecisionTreeRegressor</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
-
 <span class="c1"># fit the model</span>
 <span class="n">dt_pruned</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
 </pre></div>
@@ -18436,7 +18107,7 @@ Finishing computing...
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[&nbsp;]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[140]:</div>
 
 
 
@@ -18451,18 +18122,14 @@ Finishing computing...
 
 </div>
 
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h4 id="Check-the-performance-of-the-model">Check the performance of the model<a class="anchor-link" href="#Check-the-performance-of-the-model">&#182;</a></h4>
-</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[141]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">model_pref</span><span class="p">(</span><span class="n">dt_pruned</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>  
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Check the performance of the model</span>
+<span class="n">model_pref</span><span class="p">(</span><span class="n">dt_pruned</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>  
 </pre></div>
 
      </div>
@@ -18498,37 +18165,26 @@ Finishing computing...
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p><strong>Comments:</strong></p>
 <ul>
-<li>The pruned decision tree model perfomed way better than the simple decision tree model. The gaps between the metrics now have reduced drastically based on the above table. But overall, it overfits the data.</li>
+<li>The pruned decision tree model perfomed way better than the simple decision tree model. </li>
+<li>The gaps between the metrics now have reduced drastically based on the above table. </li>
+<li>But overall, it overfits the data.</li>
 </ul>
 
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h4 id="Question-4.6-Building-Random-Forest-using-only-weekend-transform-primitive">Question 4.6 Building Random Forest using only weekend transform primitive<a class="anchor-link" href="#Question-4.6-Building-Random-Forest-using-only-weekend-transform-primitive">&#182;</a></h4>
+<h2 id="Building-Random-Forest-using-only-weekend-transform-primitive">Building Random Forest using only weekend transform primitive<a class="anchor-link" href="#Building-Random-Forest-using-only-weekend-transform-primitive">&#182;</a></h2>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># define the model</span>
-<span class="n">rf</span><span class="o">=</span><span class="n">RandomForestRegressor</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[142]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#fit the model</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Define the model</span>
+<span class="n">rf</span><span class="o">=</span><span class="n">RandomForestRegressor</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+<span class="c1"># Fit the model</span>
 <span class="n">rf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
 </pre></div>
 
@@ -18545,7 +18201,7 @@ Finishing computing...
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[&nbsp;]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[142]:</div>
 
 
 
@@ -18560,18 +18216,14 @@ Finishing computing...
 
 </div>
 
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Check-the-performance-of-the-model">Check the performance of the model<a class="anchor-link" href="#Check-the-performance-of-the-model">&#182;</a></h2>
-</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[143]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">model_pref</span><span class="p">(</span><span class="n">rf</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Check the performance of the model</span>
+<span class="n">model_pref</span><span class="p">(</span><span class="n">rf</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -18623,17 +18275,16 @@ Finishing computing...
 <li>Add <code>Minute</code>, <code>Hour</code>, <code>Month</code>, <code>Weekday</code> , etc primitives</li>
 <li>All these transform primitives apply to <code>datetime</code> columns</li>
 </ul>
-<h2 id="Creating-models-with-more-transform-primitives">Creating models with more transform primitives<a class="anchor-link" href="#Creating-models-with-more-transform-primitives">&#182;</a></h2><p><strong>Define more transform primitives and define features using dfs</strong></p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[144]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">trans_primitives</span> <span class="o">=</span> <span class="p">[</span><span class="n">Minute</span><span class="p">,</span> <span class="n">Hour</span><span class="p">,</span> <span class="n">Day</span><span class="p">,</span> <span class="n">Month</span><span class="p">,</span> <span class="n">Weekday</span><span class="p">,</span> <span class="n">IsWeekend</span><span class="p">]</span>
-
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Define more transform primitives and define features using DFS</span>
+<span class="n">trans_primitives</span> <span class="o">=</span> <span class="p">[</span><span class="n">Minute</span><span class="p">,</span> <span class="n">Hour</span><span class="p">,</span> <span class="n">Day</span><span class="p">,</span> <span class="n">Month</span><span class="p">,</span> <span class="n">Weekday</span><span class="p">,</span> <span class="n">IsWeekend</span><span class="p">]</span>
 <span class="n">features</span> <span class="o">=</span> <span class="n">ft</span><span class="o">.</span><span class="n">dfs</span><span class="p">(</span><span class="n">entities</span><span class="o">=</span><span class="n">entities</span><span class="p">,</span>
                   <span class="n">relationships</span><span class="o">=</span><span class="n">relationships</span><span class="p">,</span>
                   <span class="n">target_entity</span><span class="o">=</span><span class="s2">&quot;trips&quot;</span><span class="p">,</span>
@@ -18652,7 +18303,7 @@ Finishing computing...
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[145]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Number of features: </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">features</span><span class="p">))</span>
@@ -18684,7 +18335,7 @@ Finishing computing...
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[&nbsp;]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[145]:</div>
 
 
 
@@ -18721,25 +18372,14 @@ Finishing computing...
 
 </div>
 
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Now let's compute the features.</p>
-
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><strong> Compute features and define feature matrix</strong></p>
-
-</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[146]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">feature_matrix2</span> <span class="o">=</span> <span class="n">compute_features</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">cutoff_time</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Compute features and define feature matrix</span>
+<span class="n">feature_matrix2</span> <span class="o">=</span> <span class="n">compute_features</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">cutoff_time</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -18772,7 +18412,7 @@ Finishing computing...
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[147]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">feature_matrix2</span><span class="o">.</span><span class="n">shape</span>
@@ -18791,7 +18431,7 @@ Finishing computing...
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[&nbsp;]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[147]:</div>
 
 
 
@@ -18809,7 +18449,7 @@ Finishing computing...
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[148]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">feature_matrix2</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -18828,13 +18468,13 @@ Finishing computing...
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[&nbsp;]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[148]:</div>
 
 
 
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
 
-  <div id="df-6c91580c-d5ee-433a-afac-a89416012fb0">
+  <div id="df-83dfb1d1-d2cc-4eca-8867-6ec19024d037">
     <div class="colab-df-container">
       <div>
 <style scoped>
@@ -19026,7 +18666,7 @@ Finishing computing...
 </table>
 <p>5 rows × 41 columns</p>
 </div>
-      <button class="colab-df-convert" onclick="convertToInteractive('df-6c91580c-d5ee-433a-afac-a89416012fb0')"
+      <button class="colab-df-convert" onclick="convertToInteractive('df-83dfb1d1-d2cc-4eca-8867-6ec19024d037')"
               title="Convert this dataframe to an interactive table."
               style="display:none;">
         
@@ -19077,12 +18717,12 @@ Finishing computing...
 
       <script>
         const buttonEl =
-          document.querySelector('#df-6c91580c-d5ee-433a-afac-a89416012fb0 button.colab-df-convert');
+          document.querySelector('#df-83dfb1d1-d2cc-4eca-8867-6ec19024d037 button.colab-df-convert');
         buttonEl.style.display =
           google.colab.kernel.accessAllowed ? 'block' : 'none';
 
         async function convertToInteractive(key) {
-          const element = document.querySelector('#df-6c91580c-d5ee-433a-afac-a89416012fb0');
+          const element = document.querySelector('#df-83dfb1d1-d2cc-4eca-8867-6ec19024d037');
           const dataTable =
             await google.colab.kernel.invokeFunction('convertToInteractive',
                                                      [key], {});
@@ -19118,11 +18758,10 @@ Finishing computing...
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[149]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># separates the whole feature matrix into train data feature matrix,</span>
-<span class="c1"># train data labels, and test data feature matrix </span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Separate the whole feature matrix into train and test data feature matrix,</span>
 <span class="n">X_train2</span><span class="p">,</span> <span class="n">y_train2</span><span class="p">,</span> <span class="n">X_test2</span><span class="p">,</span> <span class="n">y_test2</span> <span class="o">=</span> <span class="n">get_train_test_fm</span><span class="p">(</span><span class="n">feature_matrix2</span><span class="p">,</span><span class="o">.</span><span class="mi">75</span><span class="p">)</span>
 <span class="n">y_train2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">y_train2</span><span class="p">)</span>
 <span class="n">y_test2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">y_test2</span><span class="p">)</span>
@@ -19141,13 +18780,12 @@ Finishing computing...
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[150]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># defining the model</span>
-
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Defining the model</span>
 <span class="n">lr2</span><span class="o">=</span><span class="n">LinearRegression</span><span class="p">()</span>
-<span class="c1">#fitting the model</span>
+<span class="c1"># Fitting the model</span>
 <span class="n">lr2</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train2</span><span class="p">,</span> <span class="n">y_train2</span><span class="p">)</span>
 </pre></div>
 
@@ -19164,7 +18802,7 @@ Finishing computing...
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[&nbsp;]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[150]:</div>
 
 
 
@@ -19179,18 +18817,14 @@ Finishing computing...
 
 </div>
 
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h4 id="Check-the-performance-of-the-model">Check the performance of the model<a class="anchor-link" href="#Check-the-performance-of-the-model">&#182;</a></h4>
-</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[151]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">model_pref</span><span class="p">(</span><span class="n">lr2</span><span class="p">,</span> <span class="n">X_train2</span><span class="p">,</span> <span class="n">X_test2</span><span class="p">,</span> <span class="n">y_train2</span><span class="p">,</span> <span class="n">y_test2</span><span class="p">)</span>  
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Check the performance of the model</span>
+<span class="n">model_pref</span><span class="p">(</span><span class="n">lr2</span><span class="p">,</span> <span class="n">X_train2</span><span class="p">,</span> <span class="n">X_test2</span><span class="p">,</span> <span class="n">y_train2</span><span class="p">,</span> <span class="n">y_test2</span><span class="p">)</span>  
 </pre></div>
 
      </div>
@@ -19226,7 +18860,8 @@ Finishing computing...
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p><strong>Comments:</strong></p>
 <ul>
-<li>The metricc on the train and test of this the model are almost the same. But the RMSE and the MAE are still slightly lower on the train than on the test data.</li>
+<li>The metrics on the train and test are almost the same. </li>
+<li>But the RMSE and the MAE are still slightly lower on the train than on the test data.</li>
 <li>Overall, the model is not too bad.</li>
 </ul>
 
@@ -19239,14 +18874,12 @@ Finishing computing...
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[153]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#define the model</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Define the model</span>
 <span class="n">dt2</span><span class="o">=</span><span class="n">DecisionTreeRegressor</span><span class="p">()</span>
-
-<span class="c1">#fit the model</span>
-
+<span class="c1"># Fit the model</span>
 <span class="n">dt2</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train2</span><span class="p">,</span> <span class="n">y_train2</span><span class="p">)</span>
 </pre></div>
 
@@ -19263,7 +18896,7 @@ Finishing computing...
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[&nbsp;]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[153]:</div>
 
 
 
@@ -19278,18 +18911,14 @@ Finishing computing...
 
 </div>
 
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h4 id="Check-the-performance-of-the-model">Check the performance of the model<a class="anchor-link" href="#Check-the-performance-of-the-model">&#182;</a></h4>
-</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[154]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">model_pref</span><span class="p">(</span><span class="n">dt2</span><span class="p">,</span> <span class="n">X_train2</span><span class="p">,</span> <span class="n">X_test2</span><span class="p">,</span> <span class="n">y_train2</span><span class="p">,</span> <span class="n">y_test2</span><span class="p">)</span>  
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Check the performance of the model</span>
+<span class="n">model_pref</span><span class="p">(</span><span class="n">dt2</span><span class="p">,</span> <span class="n">X_train2</span><span class="p">,</span> <span class="n">X_test2</span><span class="p">,</span> <span class="n">y_train2</span><span class="p">,</span> <span class="n">y_test2</span><span class="p">)</span>  
 </pre></div>
 
      </div>
@@ -19311,7 +18940,7 @@ Finishing computing...
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
 <pre>    Data  RSquared      RMSE       MAE
 0  Train  1.000000  0.001479  0.000004
-1   Test  0.713607  5.266615  3.789094
+1   Test  0.712373  5.277952  3.796112
 </pre>
 </div>
 </div>
@@ -19325,7 +18954,8 @@ Finishing computing...
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p><strong>Comments:</strong></p>
 <ul>
-<li>This model is really bad! It strongly overfitted the data. </li>
+<li>This model is really bad! </li>
+<li>It strongly overfitted the data. </li>
 </ul>
 
 </div>
@@ -19337,15 +18967,12 @@ Finishing computing...
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[157]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Define the model</span>
-
-<span class="c1"># use max_depth=7</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Define the model using max_depth=7</span>
 <span class="n">dt_pruned2</span><span class="o">=</span><span class="n">DecisionTreeRegressor</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-
-<span class="c1"># fit the model</span>
+<span class="c1"># Fit the model</span>
 <span class="n">dt_pruned2</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train2</span><span class="p">,</span> <span class="n">y_train2</span><span class="p">)</span>
 </pre></div>
 
@@ -19362,7 +18989,7 @@ Finishing computing...
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[&nbsp;]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[157]:</div>
 
 
 
@@ -19377,18 +19004,14 @@ Finishing computing...
 
 </div>
 
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h4 id="Check-the-performance-of-the-model">Check the performance of the model<a class="anchor-link" href="#Check-the-performance-of-the-model">&#182;</a></h4>
-</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[158]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">model_pref</span><span class="p">(</span><span class="n">dt_pruned2</span><span class="p">,</span> <span class="n">X_train2</span><span class="p">,</span> <span class="n">X_test2</span><span class="p">,</span> <span class="n">y_train2</span><span class="p">,</span> <span class="n">y_test2</span><span class="p">)</span>  
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Check the performance of the model</span>
+<span class="n">model_pref</span><span class="p">(</span><span class="n">dt_pruned2</span><span class="p">,</span> <span class="n">X_train2</span><span class="p">,</span> <span class="n">X_test2</span><span class="p">,</span> <span class="n">y_train2</span><span class="p">,</span> <span class="n">y_test2</span><span class="p">)</span>  
 </pre></div>
 
      </div>
@@ -19424,7 +19047,8 @@ Finishing computing...
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p><strong>Comments:</strong></p>
 <ul>
-<li>The model performs pretty good by drasticall reducing the gaps we've observed from the previous model. But still, very slighly overfitting.</li>
+<li>The model performs pretty good by drastically reducing the gaps we've observed from the previous model. </li>
+<li>But still, very slighly overfitting.</li>
 </ul>
 
 </div>
@@ -19436,12 +19060,12 @@ Finishing computing...
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[159]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#fit the model</span>
-
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Defining the model </span>
 <span class="n">rf2</span> <span class="o">=</span> <span class="n">RandomForestRegressor</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+<span class="c1"># Fit the model</span>
 <span class="n">rf2</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train2</span><span class="p">,</span> <span class="n">y_train2</span><span class="p">)</span>
 </pre></div>
 
@@ -19458,7 +19082,7 @@ Finishing computing...
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[&nbsp;]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[159]:</div>
 
 
 
@@ -19473,18 +19097,14 @@ Finishing computing...
 
 </div>
 
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Checking-the-performance-of-the-model">Checking the performance of the model<a class="anchor-link" href="#Checking-the-performance-of-the-model">&#182;</a></h2>
-</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[160]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">model_pref</span><span class="p">(</span><span class="n">rf2</span><span class="p">,</span> <span class="n">X_train2</span><span class="p">,</span> <span class="n">X_test2</span><span class="p">,</span> <span class="n">y_train2</span><span class="p">,</span> <span class="n">y_test2</span> <span class="p">)</span>  
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Checking the performance of the model</span>
+<span class="n">model_pref</span><span class="p">(</span><span class="n">rf2</span><span class="p">,</span> <span class="n">X_train2</span><span class="p">,</span> <span class="n">X_test2</span><span class="p">,</span> <span class="n">y_train2</span><span class="p">,</span> <span class="n">y_test2</span> <span class="p">)</span>  
 </pre></div>
 
      </div>
@@ -19505,8 +19125,8 @@ Finishing computing...
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
 <pre>    Data  RSquared      RMSE       MAE
-0  Train  0.774642  4.471179  3.366930
-1   Test  0.751791  4.902971  3.645133
+0  Train  0.774626  4.471335  3.367063
+1   Test  0.751804  4.902839  3.645093
 </pre>
 </div>
 </div>
@@ -19528,28 +19148,25 @@ Finishing computing...
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Step-5:-Add-Aggregation-Primitives">Step 5: Add Aggregation Primitives<a class="anchor-link" href="#Step-5:-Add-Aggregation-Primitives">&#182;</a></h3><p>Now let's add aggregation primitives. These primitives will generate features for the parent entities <code>pickup_neighborhoods</code>, and <code>dropoff_neighborhood</code> and then add them to the trips entity, which is the entity for which we are trying to make prediction.</p>
+<h1 id="Step-5:-Add-Aggregation-Primitives">Step 5: Add Aggregation Primitives<a class="anchor-link" href="#Step-5:-Add-Aggregation-Primitives">&#182;</a></h1><p><strong>Notes:</strong></p>
+<ul>
+<li>Now let's add aggregation primitives. These primitives will generate features for the parent entities <code>pickup_neighborhoods</code>, and <code>dropoff_neighborhood</code> and then add them to the trips entity, which is the entity for which we are trying to make prediction.</li>
+</ul>
 
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="Step-5:-Add-Aggregation-Primitives">Step 5: Add Aggregation Primitives<a class="anchor-link" href="#Step-5:-Add-Aggregation-Primitives">&#182;</a></h1><p>Now let's add aggregation primitives. These primitives will generate features for the parent entities <code>pickup_neighborhoods</code>, and <code>dropoff_neighborhood</code> and then add them to the trips entity, which is the entity for which we are trying to make prediction.</p>
-
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Create-a-Models-with-transform-and-aggregate-primitive.">Create a Models with transform and aggregate primitive.<a class="anchor-link" href="#Create-a-Models-with-transform-and-aggregate-primitive.">&#182;</a></h2><p><strong> Define more transform and aggregate primitive and define features using dfs</strong></p>
-
+<h2 id="Create-Models-with-transform-and-aggregate-primitives.">Create Models with transform and aggregate primitives.<a class="anchor-link" href="#Create-Models-with-transform-and-aggregate-primitives.">&#182;</a></h2>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[161]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">trans_primitives</span> <span class="o">=</span> <span class="p">[</span><span class="n">Minute</span><span class="p">,</span> <span class="n">Hour</span><span class="p">,</span> <span class="n">Day</span><span class="p">,</span> <span class="n">Month</span><span class="p">,</span> <span class="n">Weekday</span><span class="p">,</span> <span class="n">IsWeekend</span><span class="p">]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Define more transform and aggregate primitive and define features using DFS</span>
+<span class="n">trans_primitives</span> <span class="o">=</span> <span class="p">[</span><span class="n">Minute</span><span class="p">,</span> <span class="n">Hour</span><span class="p">,</span> <span class="n">Day</span><span class="p">,</span> <span class="n">Month</span><span class="p">,</span> <span class="n">Weekday</span><span class="p">,</span> <span class="n">IsWeekend</span><span class="p">]</span>
 <span class="n">aggregation_primitives</span> <span class="o">=</span> <span class="p">[</span><span class="n">Count</span><span class="p">,</span> <span class="n">Sum</span><span class="p">,</span> <span class="n">Mean</span><span class="p">,</span> <span class="n">Median</span><span class="p">,</span> <span class="n">Std</span><span class="p">,</span> <span class="n">Max</span><span class="p">,</span> <span class="n">Min</span><span class="p">]</span>
 
 <span class="n">features</span> <span class="o">=</span> <span class="n">ft</span><span class="o">.</span><span class="n">dfs</span><span class="p">(</span><span class="n">entities</span><span class="o">=</span><span class="n">entities</span><span class="p">,</span>
@@ -19570,7 +19187,7 @@ Finishing computing...
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[162]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Number of features: </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">features</span><span class="p">))</span>
@@ -19602,7 +19219,7 @@ Finishing computing...
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[&nbsp;]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[162]:</div>
 
 
 
@@ -19680,16 +19297,16 @@ Finishing computing...
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><strong>Compute features and define feature matrix</strong></p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[163]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">feature_matrix3</span> <span class="o">=</span> <span class="n">compute_features</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">cutoff_time</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Compute features and define feature matrix</span>
+<span class="n">feature_matrix3</span> <span class="o">=</span> <span class="n">compute_features</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">cutoff_time</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -19709,7 +19326,7 @@ Finishing computing...
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Elapsed: 00:21 | Progress: 100%|██████████
+<pre>Elapsed: 00:19 | Progress: 100%|██████████
 Finishing computing...
 </pre>
 </div>
@@ -19722,7 +19339,7 @@ Finishing computing...
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[164]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">feature_matrix3</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -19741,13 +19358,13 @@ Finishing computing...
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[&nbsp;]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[164]:</div>
 
 
 
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
 
-  <div id="df-e794694e-6205-4587-8d96-ae081de898ad">
+  <div id="df-91bd2ee9-7855-48a8-9b75-6e347547ebf0">
     <div class="colab-df-container">
       <div>
 <style scoped>
@@ -19939,7 +19556,7 @@ Finishing computing...
 </table>
 <p>5 rows × 79 columns</p>
 </div>
-      <button class="colab-df-convert" onclick="convertToInteractive('df-e794694e-6205-4587-8d96-ae081de898ad')"
+      <button class="colab-df-convert" onclick="convertToInteractive('df-91bd2ee9-7855-48a8-9b75-6e347547ebf0')"
               title="Convert this dataframe to an interactive table."
               style="display:none;">
         
@@ -19990,12 +19607,12 @@ Finishing computing...
 
       <script>
         const buttonEl =
-          document.querySelector('#df-e794694e-6205-4587-8d96-ae081de898ad button.colab-df-convert');
+          document.querySelector('#df-91bd2ee9-7855-48a8-9b75-6e347547ebf0 button.colab-df-convert');
         buttonEl.style.display =
           google.colab.kernel.accessAllowed ? 'block' : 'none';
 
         async function convertToInteractive(key) {
-          const element = document.querySelector('#df-e794694e-6205-4587-8d96-ae081de898ad');
+          const element = document.querySelector('#df-91bd2ee9-7855-48a8-9b75-6e347547ebf0');
           const dataTable =
             await google.colab.kernel.invokeFunction('convertToInteractive',
                                                      [key], {});
@@ -20023,19 +19640,13 @@ Finishing computing...
 
 </div>
 
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Build-the-new-models-more-transform-and-aggregate-features">Build the new models more transform and aggregate features<a class="anchor-link" href="#Build-the-new-models-more-transform-and-aggregate-features">&#182;</a></h2>
-</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[165]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># separates the whole feature matrix into train data feature matrix,</span>
-<span class="c1"># train data labels, and test data feature matrix </span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Separates the whole feature matrix into train data feature matrix,</span>
 <span class="n">X_train3</span><span class="p">,</span> <span class="n">y_train3</span><span class="p">,</span> <span class="n">X_test3</span><span class="p">,</span> <span class="n">y_test3</span> <span class="o">=</span> <span class="n">get_train_test_fm</span><span class="p">(</span><span class="n">feature_matrix3</span><span class="p">,</span><span class="o">.</span><span class="mi">75</span><span class="p">)</span>
 <span class="n">y_train3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">y_train3</span><span class="p">)</span>
 <span class="n">y_test3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">y_test3</span><span class="p">)</span>
@@ -20049,19 +19660,17 @@ Finishing computing...
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Building--Linear-regression-model-with-transform-and-aggregate-primitive.">Building  Linear regression model with transform and aggregate primitive.<a class="anchor-link" href="#Building--Linear-regression-model-with-transform-and-aggregate-primitive.">&#182;</a></h2>
+<h2 id="Building--Linear-Regression-model-with-transform-and-aggregate-primitives.">Building  Linear Regression model with transform and aggregate primitives.<a class="anchor-link" href="#Building--Linear-Regression-model-with-transform-and-aggregate-primitives.">&#182;</a></h2>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[166]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># defining the model</span>
-
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Defining the model</span>
 <span class="n">lr3</span><span class="o">=</span><span class="n">LinearRegression</span><span class="p">()</span>
-
-<span class="c1"># fitting the model</span>
+<span class="c1"># Fitting the model</span>
 <span class="n">lr3</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train3</span><span class="p">,</span> <span class="n">y_train3</span><span class="p">)</span>
 </pre></div>
 
@@ -20078,7 +19687,7 @@ Finishing computing...
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[&nbsp;]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[166]:</div>
 
 
 
@@ -20093,18 +19702,14 @@ Finishing computing...
 
 </div>
 
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h4 id="Check-the-performance-of-the-model">Check the performance of the model<a class="anchor-link" href="#Check-the-performance-of-the-model">&#182;</a></h4>
-</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[167]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">model_pref</span><span class="p">(</span><span class="n">lr3</span><span class="p">,</span> <span class="n">X_train3</span><span class="p">,</span> <span class="n">X_test3</span><span class="p">,</span> <span class="n">y_train3</span><span class="p">,</span> <span class="n">y_test3</span><span class="p">)</span>  
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Check the performance of the model</span>
+<span class="n">model_pref</span><span class="p">(</span><span class="n">lr3</span><span class="p">,</span> <span class="n">X_train3</span><span class="p">,</span> <span class="n">X_test3</span><span class="p">,</span> <span class="n">y_train3</span><span class="p">,</span> <span class="n">y_test3</span><span class="p">)</span>  
 </pre></div>
 
      </div>
@@ -20147,19 +19752,17 @@ Finishing computing...
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Building--Decision-tree-with-transform-and-aggregate-primitive.">Building  Decision tree with transform and aggregate primitive.<a class="anchor-link" href="#Building--Decision-tree-with-transform-and-aggregate-primitive.">&#182;</a></h2>
+<h2 id="Building--Decision-Tree-model-with-transform-and-aggregate-primitives.">Building  Decision Tree model with transform and aggregate primitives.<a class="anchor-link" href="#Building--Decision-Tree-model-with-transform-and-aggregate-primitives.">&#182;</a></h2>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[168]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># define the model</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Define the model</span>
 <span class="n">dt3</span><span class="o">=</span><span class="n">DecisionTreeRegressor</span><span class="p">()</span>
-
-<span class="c1"># fit the model</span>
-
+<span class="c1"># Fitting the model</span>
 <span class="n">dt3</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train3</span><span class="p">,</span> <span class="n">y_train3</span><span class="p">)</span>
 </pre></div>
 
@@ -20176,7 +19779,7 @@ Finishing computing...
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[&nbsp;]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[168]:</div>
 
 
 
@@ -20191,18 +19794,14 @@ Finishing computing...
 
 </div>
 
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h4 id="Check-the-performance-of-the-model">Check the performance of the model<a class="anchor-link" href="#Check-the-performance-of-the-model">&#182;</a></h4>
-</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[169]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">model_pref</span><span class="p">(</span><span class="n">dt3</span><span class="p">,</span> <span class="n">X_train3</span><span class="p">,</span> <span class="n">X_test3</span><span class="p">,</span> <span class="n">y_train3</span><span class="p">,</span> <span class="n">y_test3</span><span class="p">)</span>  
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Check the performance of the model</span>
+<span class="n">model_pref</span><span class="p">(</span><span class="n">dt3</span><span class="p">,</span> <span class="n">X_train3</span><span class="p">,</span> <span class="n">X_test3</span><span class="p">,</span> <span class="n">y_train3</span><span class="p">,</span> <span class="n">y_test3</span><span class="p">)</span>  
 </pre></div>
 
      </div>
@@ -20245,16 +19844,17 @@ Finishing computing...
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h4 id="Question-6.5-Building--Pruned-Decision-tree-with-transform-and-aggregate-primitive.">Question 6.5 Building  Pruned Decision tree with transform and aggregate primitive.<a class="anchor-link" href="#Question-6.5-Building--Pruned-Decision-tree-with-transform-and-aggregate-primitive.">&#182;</a></h4>
+<h2 id="Building--Pruned-Decision-Tree-with-transform-and-aggregate-primitives.">Building  Pruned Decision Tree with transform and aggregate primitives.<a class="anchor-link" href="#Building--Pruned-Decision-Tree-with-transform-and-aggregate-primitives.">&#182;</a></h2>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[170]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dt_pruned3</span><span class="o">=</span><span class="n">DecisionTreeRegressor</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
-
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Define the model</span>
+<span class="n">dt_pruned3</span><span class="o">=</span><span class="n">DecisionTreeRegressor</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+<span class="c1"># Fit the model</span>
 <span class="n">dt_pruned3</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train3</span><span class="p">,</span> <span class="n">y_train3</span><span class="p">)</span>
 </pre></div>
 
@@ -20271,7 +19871,7 @@ Finishing computing...
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[&nbsp;]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[170]:</div>
 
 
 
@@ -20286,18 +19886,14 @@ Finishing computing...
 
 </div>
 
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h4 id="Check-the-performance-of-the-model">Check the performance of the model<a class="anchor-link" href="#Check-the-performance-of-the-model">&#182;</a></h4>
-</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[171]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">model_pref</span><span class="p">(</span><span class="n">dt_pruned3</span><span class="p">,</span> <span class="n">X_train3</span><span class="p">,</span> <span class="n">X_test3</span><span class="p">,</span> <span class="n">y_train3</span><span class="p">,</span> <span class="n">y_test3</span><span class="p">)</span>  
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Check the performance of the model</span>
+<span class="n">model_pref</span><span class="p">(</span><span class="n">dt_pruned3</span><span class="p">,</span> <span class="n">X_train3</span><span class="p">,</span> <span class="n">X_test3</span><span class="p">,</span> <span class="n">y_train3</span><span class="p">,</span> <span class="n">y_test3</span><span class="p">)</span>  
 </pre></div>
 
      </div>
@@ -20333,23 +19929,26 @@ Finishing computing...
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p><strong>Comments:</strong></p>
 <ul>
-<li>The model performs well. The two R-squared  are almost the same as well as the RMSE and the MAE. But the two last metrics as slightly lower on the train than on the test.</li>
+<li>The model performs well. </li>
+<li>The two R-squared  are almost the same as well as the RMSE and the MAE. </li>
+<li>But the two last metrics as slightly lower on the train than on the test.</li>
 </ul>
 
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h4 id="Question-6.6-Building--Random-Forest-with-transform-and-aggregate-primitive.">Question 6.6 Building  Random Forest with transform and aggregate primitive.<a class="anchor-link" href="#Question-6.6-Building--Random-Forest-with-transform-and-aggregate-primitive.">&#182;</a></h4>
+<h2 id="Building--Random-Forest-with-transform-and-aggregate-primitives.">Building  Random Forest with transform and aggregate primitives.<a class="anchor-link" href="#Building--Random-Forest-with-transform-and-aggregate-primitives.">&#182;</a></h2>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[172]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">rf3</span><span class="o">=</span><span class="n">RandomForestRegressor</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
-
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Define the model</span>
+<span class="n">rf3</span><span class="o">=</span><span class="n">RandomForestRegressor</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+<span class="c1"># Fit the model</span>
 <span class="n">rf3</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train3</span><span class="p">,</span> <span class="n">y_train3</span><span class="p">)</span>
 </pre></div>
 
@@ -20366,7 +19965,7 @@ Finishing computing...
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[&nbsp;]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[172]:</div>
 
 
 
@@ -20381,18 +19980,14 @@ Finishing computing...
 
 </div>
 
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h4 id="Check-the-performance-of-the-model">Check the performance of the model<a class="anchor-link" href="#Check-the-performance-of-the-model">&#182;</a></h4>
-</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[173]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">model_pref</span><span class="p">(</span><span class="n">rf3</span><span class="p">,</span> <span class="n">X_train3</span><span class="p">,</span> <span class="n">X_test3</span><span class="p">,</span><span class="n">y_train3</span><span class="p">,</span><span class="n">y_test3</span><span class="p">)</span>  
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Check the performance of the model</span>
+<span class="n">model_pref</span><span class="p">(</span><span class="n">rf3</span><span class="p">,</span> <span class="n">X_train3</span><span class="p">,</span> <span class="n">X_test3</span><span class="p">,</span><span class="n">y_train3</span><span class="p">,</span><span class="n">y_test3</span><span class="p">)</span>  
 </pre></div>
 
      </div>
@@ -20428,26 +20023,45 @@ Finishing computing...
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p><strong>Comments:</strong></p>
 <ul>
-<li>The performs well with all the metrics on the train and test about the same, but slightly lower on the test.
--The model improves very well with the aggregate transforms. The performance on the training improves drastically.</li>
-<li>Based on the above 3 models, we can make predictions using our model2, as it is giving almost same accuracy as model3 and also the training time is not that large as compared to model3</li>
+<li>This 3rd Random Forest model performs well, and all the metrics on the train and test sets about the same, but slightly lower on the test.
+-The model improves very well with the aggregate transforms. </li>
+<li>The performance on the training improves drastically.</li>
+<li>Based on the above three rounds of models, we can make predictions using models from round 2, as it is giving almost same performances as models from round 3.
+-Also, the training time is not that large as compared to model 3.</li>
 </ul>
 
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Making-predictions-with-model2">Making predictions with model2<a class="anchor-link" href="#Making-predictions-with-model2">&#182;</a></h2>
+<h2 id="Recapitulation:">Recapitulation:<a class="anchor-link" href="#Recapitulation:">&#182;</a></h2><ul>
+<li>Sofar we've built <strong>Linear Regression</strong>, <strong>Decision Tree</strong>, and <strong>Random Forest</strong> models in 3 rounds:<ul>
+<li><strong>Round 1:</strong> using only <strong>IsWeekend</strong> transform primitive.</li>
+<li><strong>Round 2:</strong> using <strong>Minute, Hour, Day, Month, Weekday, IsWeekend</strong> transform primitives.</li>
+<li><strong>Round 3:</strong> using <strong>Minute, Hour, Day, Month, Weekday, IsWeekend</strong> transform primitives, and <strong>Count, Sum, Mean, Median, Std, Max, Min</strong> aggregate primitives. </li>
+</ul>
+</li>
+<li>The Linear Regression, the Pruned Decision Trees,  and the Random Forest perfomed very well in round 3 than in rounds 1 and 2.</li>
+<li>We can then make our prediction using either the Linear Regression, the Pruned Decision Tree, or the Random Forest from round 3. </li>
+<li>The Random Forest gave about the same performance in round 2 and round 3. But, the training time in round 2 is smaller than in round 3.</li>
+<li>Thus, we will use the Random Forest in round 2 for our prediction exercise. </li>
+</ul>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Making-predictions-with-the-Random-Forest-model-from-Round-2">Making predictions with the Random Forest model from Round 2<a class="anchor-link" href="#Making-predictions-with-the-Random-Forest-model-from-Round-2">&#182;</a></h2>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[177]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">y_pred</span> <span class="o">=</span> <span class="n">rf2</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test2</span><span class="p">)</span>
 <span class="n">y_pred</span> <span class="o">=</span> <span class="n">y_pred</span><span class="o">**</span><span class="mi">2</span> <span class="c1"># undo the sqrt we took earlier</span>
-<span class="n">y_pred</span><span class="p">[</span><span class="mi">5</span><span class="p">:]</span>
+<span class="n">y_pred</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span>
 </pre></div>
 
      </div>
@@ -20463,14 +20077,14 @@ Finishing computing...
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[&nbsp;]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[177]:</div>
 
 
 
 
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>array([ 528.98474395,  215.79232445,  663.81910876, ...,  182.07380292,
-       1028.99455389, 1759.33222947])</pre>
+<pre>array([1427.75480453,  403.60943774,  462.20963146,  332.71414499,
+        937.6690586 ])</pre>
 </div>
 
 </div>
@@ -20482,12 +20096,12 @@ Finishing computing...
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Important-features-based-on-model2">Important features based on model2<a class="anchor-link" href="#Important-features-based-on-model2">&#182;</a></h2>
+<h2 id="Important-features-based-on-the-Random-Forest-model-from-Round-2">Important features based on the Random Forest model from Round 2<a class="anchor-link" href="#Important-features-based-on-the-Random-Forest-model-from-Round-2">&#182;</a></h2>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[178]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">feature_importances</span><span class="p">(</span><span class="n">rf2</span><span class="p">,</span> <span class="n">feature_matrix2</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;trip_duration&#39;</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
@@ -20518,8 +20132,8 @@ Finishing computing...
 6: Feature: WEEKDAY(dropoff_datetime), 0.003
 7: Feature: IS_WEEKEND(dropoff_datetime), 0.003
 8: Feature: WEEKDAY(pickup_datetime), 0.003
-9: Feature: vendor_id, 0.002
-10: Feature: IS_WEEKEND(pickup_datetime), 0.002
+9: Feature: IS_WEEKEND(pickup_datetime), 0.003
+10: Feature: vendor_id, 0.002
 </pre>
 </div>
 </div>
@@ -20533,7 +20147,8 @@ Finishing computing...
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p><strong>Comments:</strong></p>
 <ul>
-<li>The most important feature is trip-dsitance, with 91% of relevancy,  followed by Hour(dropoff_datetime) which is even less than 1%. All the other features are not relevant.</li>
+<li>The most important feature is trip-dsitance, with 91% of relevancy,  followed by Hour(dropoff_datetime) which is even less than 1%. </li>
+<li>All the other features are not relevant.</li>
 </ul>
 
 </div>
